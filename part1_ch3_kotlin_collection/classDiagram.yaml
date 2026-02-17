@@ -1,0 +1,21 @@
+classDiagram
+    Student "1" <-- "0..*" Enrollment : enrolls
+    Course  "1" <-- "0..*" Enrollment : includes
+
+    class Student {
+      - id: String
+      - name: String
+      + enroll(course: Course): Enrollment
+    }
+    class Course {
+      - id: String
+      - title: String
+      + enroll(student: Student): Enrollment
+    }
+    class Enrollment {
+      - student: Student
+      - course: Course
+      - enrollmentDate: LocalDate
+      - grade: String?
+      + getDetails(): String
+    }

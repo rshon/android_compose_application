@@ -1,0 +1,53 @@
+package com.example.ch_android_architecture_student_ex
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.ch_android_architecture_student_ex.ui.StudentScreen
+import com.example.ch_android_architecture_student_ex.ui.theme.Ch_android_architecture_student_exTheme
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            Ch_android_architecture_student_exTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize()
+                        .padding(innerPadding)
+                        .padding(20.dp)) {
+                        StudentScreen()
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    Ch_android_architecture_student_exTheme {
+        Greeting("Android")
+    }
+}

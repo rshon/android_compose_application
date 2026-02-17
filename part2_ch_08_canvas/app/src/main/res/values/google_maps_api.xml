@@ -1,0 +1,7 @@
+<!-- res/values/google_maps_api.xml -->
+<resources>
+    <!-- templateMergeStrategy="preserve" 는 Android Studio 템플릿 유지용입니다 -->
+    <string name="google_maps_key"
+        templateMergeStrategy="preserve"
+        translatable="false">AIzaSyDCusrFiEy7KqhTU7a_bWHjKiLoh0ldlps</string>
+</resources>

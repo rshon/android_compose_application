@@ -1,0 +1,137 @@
+package com.example.mediaapplication.ui
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.mediaapplication.ui.theme.MediaApplicationTheme
+import com.example.mediaapplication.viewmodel.MediaDataViewModel
+import com.example.mediaapplication.viewmodel.MediaViewModel
+import com.example.mediaapplication.viewmodel.VideoPlayerViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import java.net.URLDecoder
+import java.net.URLEncoder
+
+
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnrememberedGetBackStackEntry")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        setContent {
+            MediaApplicationTheme {
+                val navController = rememberNavController()
+
+                MainNaviGraph(navController)
+            }
+        }
+    }
+}
+
+@Composable
+fun MainNaviGraph(navController: NavHostController) {
+    val sharedViewModel: MediaViewModel = hiltViewModel()
+    val mediaDataViewModel: MediaDataViewModel = hiltViewModel()
+
+    LaunchedEffect(mediaDataViewModel.hasPermissions.value) {
+        if (mediaDataViewModel.hasPermissions.value) {
+            mediaDataViewModel.loadMediaContent()
+        }
+    }
+
+    LaunchedEffect(mediaDataViewModel.mediaItems.value) {
+        if (mediaDataViewModel.mediaItems.value.isNotEmpty()) {
+            sharedViewModel.setMediaItems(mediaDataViewModel.mediaItems.value)
+        }
+    }
+
+    NavHost(
+        navController = navController,
+        startDestination = "media_list"
+    ) {
+        composable("media_list") {
+
+            LaunchedEffect(mediaDataViewModel.hasPermissions.value) {
+                if (mediaDataViewModel.hasPermissions.value) {
+                    mediaDataViewModel.loadMediaContent()
+                }
+            }
+
+            MediaContentListScreen(
+                mediaDataViewModel = mediaDataViewModel,
+                onImageClick = { filePath ->
+                    val encodedFilePath = URLEncoder.encode(filePath, "UTF-8")
+                    println("Navigating to: image_viewer/$encodedFilePath")
+                    navController.navigate("image_viewer/$encodedFilePath")
+                },
+                onMusicClick = { filePath ->
+                    val encodedFilePath = URLEncoder.encode(filePath, "UTF-8")
+                    println("Navigating to: music_player/$encodedFilePath")
+                    navController.navigate("music_player/$encodedFilePath")
+                },
+                onVideoClick = { filePath ->
+                    val encoded = URLEncoder.encode(filePath, "UTF-8")
+                    navController.navigate("video_player/$encoded")
+                }
+            )
+        }
+        composable(
+            route = "image_viewer/{filePath}",
+            arguments = listOf(navArgument("filePath") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val filePath = backStackEntry.arguments?.getString("filePath")?.let {
+                URLDecoder.decode(it, "UTF-8")
+            } ?: ""
+            ImageViewerScreen(filePath = filePath, onBackClick = { navController.popBackStack() })
+        }
+        composable(
+            route = "music_player/{filePath}",
+            arguments = listOf(navArgument("filePath") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val filePath = backStackEntry.arguments?.getString("filePath")?.let {
+                URLDecoder.decode(it, "UTF-8")
+            } ?: ""
+            MusicPlayerScreen(
+                viewModel = sharedViewModel,
+                filePath = filePath,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = "video_player/{filePath}",
+            arguments = listOf(navArgument("filePath") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val filePath = backStackEntry.arguments?.getString("filePath")?.let {
+                URLDecoder.decode(it, "UTF-8")
+            } ?: ""
+
+            val videoViewModel: VideoPlayerViewModel = hiltViewModel()
+
+            LaunchedEffect(mediaDataViewModel.mediaItems.value) {
+                if (mediaDataViewModel.mediaItems.value.isNotEmpty()) {
+                    videoViewModel.setMediaItems(mediaDataViewModel.mediaItems.value)
+                }
+            }
+
+            VideoPlayerScreen(
+                videoPlayerViewModel = videoViewModel,
+                navController  = navController,
+                uri            = filePath,
+            )
+        }
+    }
+}
