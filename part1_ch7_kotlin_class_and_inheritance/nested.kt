@@ -1,18 +1,16 @@
-
-
 class Student(val name: String, val major: String, var grade: Int) {
     class Address(val street: String, val city: String, val zipCode: String) {
-        fun get_address() = "$street, $city, $zipCode"
+        fun getAddress() = "$street, $city, $zipCode"
     }
 
     var address: Address? = null
 
-    fun print_info() {
+    fun printInfo() {
         println("name: ${this.name}")
         println("major: ${this.major}")
         println("grade: ${this.grade}")
         address?.let {
-            println("address: ${it.get_address()}")
+            println("address: ${it.getAddress()}")
         }
     }
 }
@@ -22,8 +20,8 @@ fun main() {
 
     val studentAddress = Student.Address("12 Heolleung-ro St", "Seoul", "06797")
     student1.address = studentAddress
-    student1.print_info()
+    student1.printInfo()
 
     val student2 = Student("Bar", "Math", 2)
-    student2.print_info()
+    student2.printInfo()
 }

@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
 import com.example.mediaapplication.data.repository.MediaRepository
 import com.example.mediaapplication.ui.theme.MediaApplicationTheme
 import com.example.mediaapplication.viewmodel.MediaViewModel
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MediaApplicationTheme {
-                Scaffold(modifier = androidx.compose.ui.Modifier.fillMaxSize()) {
+                Scaffold(modifier = Modifier.fillMaxSize()) {
                     MediaContentListScreen(mediaViewModel)
                 }
             }

@@ -1,7 +1,6 @@
 package com.example.ch_mvvm.data
 
 import com.example.ch_mvvm.domain.Student
-
 import javax.inject.Inject
 
 class StudentRepositoryImplHiltMock @Inject constructor() : StudentRepositoryInterface {

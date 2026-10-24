@@ -1,18 +1,13 @@
 package com.example.chapter_coroutine
 
-import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.LinkedBlockingQueue
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import kotlinx.coroutines.runBlocking
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
-private const val TAG = "OldStyleCallback"
 
 interface NetworkListener {
     fun onSuccess(response: String)
@@ -29,7 +24,7 @@ class LegacyNetworkClient {
     fun sendRequest(url: String) {
         Thread {
             try {
-                Thread.sleep(1000)  // regarding server latency
+                Thread.sleep(1000)  // simulating server latency
 
                 if (url.contains("success")) {
                     listener?.onSuccess("response: $url")
@@ -68,8 +63,8 @@ class MyController {
         val client = LegacyNetworkClient()
 
         client.setListener(object : NetworkListener {
-            override fun onSuccess(data: String) {
-                messageQueue.put("SUCCESS:$data")
+            override fun onSuccess(response: String) {
+                messageQueue.put("SUCCESS:$response")
             }
 
             override fun onFailure(error: Throwable) {
@@ -105,21 +100,19 @@ fun testOldStyleCallbackWithAsyncClient() {
 suspend fun LegacyNetworkClient.sendRequestSuspend(url: String): String =
     suspendCancellableCoroutine { cont ->
         setListener(object : NetworkListener {
-            override fun onSuccess(data: String) = cont.resume(data)
+            override fun onSuccess(response: String) = cont.resume(response)
             override fun onFailure(error: Throwable) = cont.resumeWithException(error)
         })
 
         sendRequest(url)
     }
 
-
-suspend fun testSuspendCancellableCoruotine2(): String {
+suspend fun testSuspendCancellableCoroutine2(): String {
     val client = LegacyNetworkClient()
     return client.sendRequestSuspend("https://example.com/success")
 }
 
-
-fun testSuspendCancellableCoruotine(): String? {
+fun testSuspendCancellableCoroutine(): String? {
     val client = LegacyNetworkClient()
     var result: String? = null
 
@@ -134,5 +127,3 @@ fun testSuspendCancellableCoruotine(): String? {
 
     return result
 }
-
-

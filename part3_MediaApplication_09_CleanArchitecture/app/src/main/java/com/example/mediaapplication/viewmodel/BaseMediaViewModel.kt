@@ -67,7 +67,7 @@ abstract class BaseMediaViewModel(
 
     protected fun updateCurrentIndex(mediaItem: MediaItem) {
         val index = mediaItems.value.indexOfFirst { it.filePath == mediaItem.filePath }
-        if (index != -1) {
+        if (index != MediaConstants.INVALID_INDEX) {
             currentIndex.value = index
         }
     }

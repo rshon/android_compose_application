@@ -51,7 +51,7 @@ fun MusicPlayerScreen(
 
     DisposableEffect(Unit) {
         onDispose {
-            println("MusicPlayerScreen disposed - stopping music")
+            println("MusicPlayerScreen disposed - pausing music")
             viewModel.pauseMusic()
         }
     }
@@ -137,9 +137,11 @@ fun MusicPlayerScreen(
             ) {
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
                     IconButton(onClick = { viewModel.playPrevious() }) {
-                        Icon(imageVector = Icons.Default.SkipPrevious,
+                        Icon(
+                            imageVector = Icons.Default.SkipPrevious,
                             contentDescription = "Previous",
-                            tint = Color.Black)
+                            tint = Color.Black
+                        )
                     }
                 }
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
@@ -153,9 +155,11 @@ fun MusicPlayerScreen(
                 }
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
                     IconButton(onClick = { viewModel.playNext() }) {
-                        Icon(imageVector = Icons.Default.SkipNext,
+                        Icon(
+                            imageVector = Icons.Default.SkipNext,
                             contentDescription = "Next",
-                            tint = Color.Black)
+                            tint = Color.Black
+                        )
                     }
                 }
             }

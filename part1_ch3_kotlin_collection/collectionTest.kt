@@ -1,9 +1,9 @@
 // build & test
-// kotlinc kotlin/collection/collection.kt -include-runtime -d main.jar && java -jar main.jar
+// kotlinc collectionTest.kt -include-runtime -d main.jar && java -jar main.jar
 
 fun arrayBasicMethods() {
     val nums = arrayOf(1, 2, 3, 4, 5)
-    
+
     println(nums[0])  // 1
 
     nums[1] = 10
@@ -38,17 +38,17 @@ fun arrayAdvancedMethods() {
 
 class DataProcessor {
     // 데이터가 없을 때 빈 리스트 반환
-    fun process_data(input: List<String>?): List<String> {
+    fun processData(input: List<String>?): List<String> {
         return input ?: emptyList()
     }
 }
 
 class Repository {
     // 초기 상태를 명확하게 표현
-    private var cached_results: List<String> = emptyList()
+    private var cachedResults: List<String> = emptyList()
 
-    fun update_results(new_results: List<String>?) {
-        cached_results = new_results ?: emptyList()
+    fun updateResults(newResults: List<String>?) {
+        cachedResults = newResults ?: emptyList()
     }
 }
 
@@ -89,10 +89,10 @@ fun testMutableList() {
     println("days[0] = ${days[0]}")
 
     days.sort()
-    println("days = ${days}")
+    println("days = $days")
 
     days.reverse()
-    println("days = ${days}")
+    println("days = $days")
 
     days.clear()
     println("days.size = ${days.size}")
@@ -101,14 +101,14 @@ fun testMutableList() {
 fun testMap() {
     val scores = mapOf("Alice" to 95, "Bob" to 87)
     println(scores["Alice"])  // 95
-    
+
     val mutableScores = mutableMapOf("Charlie" to 90)
     mutableScores["Dave"] = 85  // 추가
     println(mutableScores)  // {Charlie=90, Dave=85}
 }
 
-fun getLanguageSettings(language_type: String): Map<String, Int> {
-    return if (language_type == "AI language") emptyMap() else mapOf("Kotlin" to 1, "Python" to 2)
+fun getLanguageSettings(languageType: String): Map<String, Int> {
+    return if (languageType == "AI language") emptyMap() else mapOf("Kotlin" to 1, "Python" to 2)
 }
 
 fun startTestMap() {
@@ -147,7 +147,7 @@ fun testMapLoop() {
 fun testSet() {
     val numbers = setOf(1, 2, 2, 3)
     println(numbers)  // [1, 2, 3]
-    
+
     val mutableNumbers = mutableSetOf(4, 5)
     mutableNumbers.add(6)
     println(mutableNumbers)  // [4, 5, 6]
@@ -157,8 +157,8 @@ fun testEmptySet() {
     val empty = emptySet<String>()
 
     val languages = hashSetOf("Kotlin")
-    languages.add("Python")                    
-    languages.addAll(listOf("Java", "Kotlin")) 
+    languages.add("Python")
+    languages.addAll(listOf("Java", "Kotlin"))
     println(languages)  // [Kotlin, Python, Java](순서 무작위)
 
     languages.remove("Python")
@@ -173,17 +173,17 @@ fun testEmptySet() {
 
 fun testLinkedHashSet() {
     val languages = linkedSetOf("Kotlin")
-    languages.add("Python")                   
+    languages.add("Python")
     languages.addAll(listOf("Java", "Kotlin"))
     println(languages)  // [Kotlin, Python, Java](삽입 순서 유지)
 
-    languages.remove("Python")           
+    languages.remove("Python")
     println(languages)  // [Kotlin, Java]
 
     languages.removeAll(setOf("Kotlin", "Java"))
     println(languages)  // []
 
-    languages.clear() 
+    languages.clear()
     println(languages)  // []
 }
 
@@ -192,14 +192,13 @@ fun testSequence() {
         .map { println("map: $it"); it * it }
         .filter { println("filter: $it"); it > 3 }
         .toList()
-    
+
     val sequence = sequenceOf(1, 2, 3, 4, 5)
         .map { println("map: $it"); it * it }
         .filter { println("filter: $it"); it > 3 }
 
     val result = sequence.toList()
 }
-
 
 fun main() {
     // arrayBasicMethods()

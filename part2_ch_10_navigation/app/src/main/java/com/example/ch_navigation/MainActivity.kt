@@ -26,9 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -97,7 +95,7 @@ fun StudentInfoApp(innerPadding: PaddingValues) {
 
             composable(
                 route = "student_detail/{studentId}",
-                arguments = listOf(navArgument("studentId") { type = androidx.navigation.NavType.StringType })
+                arguments = listOf(navArgument("studentId") { type = NavType.StringType })
             ) { backStackEntry ->
                 val studentId = backStackEntry.arguments?.getString("studentId") ?: ""
                 val student = students.find { it.id == studentId }
@@ -118,7 +116,8 @@ fun StudentInfoApp(innerPadding: PaddingValues) {
 @Composable
 fun MainScreen(paddingValues: PaddingValues, onEnterClick: () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(paddingValues),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally

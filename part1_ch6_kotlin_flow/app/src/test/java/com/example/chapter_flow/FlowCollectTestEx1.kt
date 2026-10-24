@@ -29,7 +29,7 @@ fun testCollectLatest() = runBlocking {
         }
 }
 
-fun testHandlingExcpetion() = runBlocking {
+fun testHandlingException() = runBlocking {
     flow {
         emit(1)
         throw RuntimeException("Error!")
@@ -56,7 +56,6 @@ fun main() {
 //    testCollect()
 //    testCollectOnEach()
 //    testCollectLatest()
-//    testHandlingExcpetion()
+//    testHandlingException()
     testHandlingException2()
 }
-

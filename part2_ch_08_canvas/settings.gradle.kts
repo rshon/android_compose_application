@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ch_canvas_"
 include(":app")
- 

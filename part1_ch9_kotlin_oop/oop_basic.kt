@@ -1,4 +1,3 @@
-
 open class Person(val name: String) {
     open fun introduce() {
         println("Name: $name")

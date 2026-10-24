@@ -13,10 +13,6 @@ android {
     namespace = "com.example.mediaapplication"
     compileSdk = 35
 
-    buildFeatures {
-        buildConfig = true
-    }
-
     defaultConfig {
         applicationId = "com.example.mediaapplication"
         minSdk = 31
@@ -46,6 +42,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
@@ -86,8 +83,6 @@ dependencies {
 //    implementation("com.google.dagger:hilt-android:2.48")
 //    kapt("com.google.dagger:hilt-android-compiler:2.48")
 //    implementation("androidx.hilt:hilt-navigation-compose:1.1.0") // Compose에서 ViewModel 사용 시 (선택 사항)
-
-    kapt("androidx.room:room-compiler:2.7.0")
 
     implementation("io.coil-kt:coil-compose:2.4.0")
 

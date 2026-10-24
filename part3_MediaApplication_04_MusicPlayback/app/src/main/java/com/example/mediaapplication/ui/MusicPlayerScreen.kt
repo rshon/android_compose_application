@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.mediaapplication.data.model.MediaItem
+import com.example.mediaapplication.data.model.MediaType
 import com.example.mediaapplication.viewmodel.MediaViewModel
 import java.io.File
 
@@ -34,11 +36,13 @@ fun MusicPlayerScreen(
 
     LaunchedEffect(filePath) {
         println("Playing music with filePath: $filePath")
-        viewModel.playMusic(com.example.mediaapplication.data.model.MediaItem(
-            type = com.example.mediaapplication.data.model.MediaType.MUSIC,
-            title = File(filePath).name,
-            filePath = filePath
-        ))
+        viewModel.playMusic(
+            MediaItem(
+                type = MediaType.MUSIC,
+                title = File(filePath).name,
+                filePath = filePath
+            )
+        )
     }
 
     println("UI re-render triggered with progress: $progress")

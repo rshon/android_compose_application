@@ -1,5 +1,3 @@
-
-
 open class Student(
     val name: String,
     var major: String,

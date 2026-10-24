@@ -1,5 +1,5 @@
 // build & test
-// kotlinc kotlin/collection/collection.kt -include-runtime -d main.jar && java -jar main.jar
+// kotlinc condition.kt -include-runtime -d main.jar && java -jar main.jar
 
 fun testConditionalStatements() {
     val a = 1
@@ -26,7 +26,7 @@ fun testMultipleConditions() {
     else if (score >= 70) "C"
     else "D"
 
-    println("grade: ${grade}")
+    println("grade: $grade")
 }
 
 fun testWhen() {
@@ -47,7 +47,7 @@ fun testWhen() {
         in 60..69 -> "D"
         else -> "F"
     }
-    println("grade : $grade")
+    println("grade: $grade")
 }
 
 fun testWhenWithMultipleTypes() {
@@ -56,7 +56,7 @@ fun testWhenWithMultipleTypes() {
     when (value) { // 주의: value를 when의 인자로 넣어야 아래 조건들이 올바르게 작동합니다.
         is String -> println("It's a string")
         in 1..10 -> println("It's in range")
-        10.0 -> println("It's Kotlin") // value == 10.0 과 같은 의미
+        10.0 -> println("It's 10.0") // value == 10.0 과 같은 의미
         else -> println("Unknown")
     }
 }
@@ -64,19 +64,19 @@ fun testWhenWithMultipleTypes() {
 fun testForLoop() {
     println("iterates from 1 to 5")
     for (i in 1..5) {
-        print("${i} ")
+        print("$i ")
     }
     println("")
 
-    println("iterates from 5 to 1 with step -2")
+    println("iterates from 5 to 1 with step 2")
     for (i in 5 downTo 1 step 2) {
-        print("${i} ")
+        print("$i ")
     }
     println("")
 
     println("iterates from 1 to 4")
     for (i in 1 until 5) {
-        print("${i} ")
+        print("$i ")
     }
     println("")
 
@@ -111,8 +111,8 @@ fun testForLoop() {
 fun testForLoopWithCollection() {
     println("iterates items")
     val grades = listOf("A", "B", "C")
-    for (grade in grades) { // 변수명을 fruit -> grade 로 문맥에 맞게 수정했습니다.
-        print("${grade} ")
+    for (grade in grades) {
+        print("$grade ")
     }
     println("")
 

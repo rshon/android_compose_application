@@ -1,6 +1,5 @@
 package com.example.ch_app_bind_service.service
 
-import androidx.media3.exoplayer.ExoPlayer
 import android.app.Service
 import android.content.Intent
 import android.media.session.MediaSession
@@ -8,10 +7,10 @@ import android.net.Uri
 import android.os.Binder
 import android.os.IBinder
 import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
 
 class MusicService : Service() {
     private val binder = MusicBinder()

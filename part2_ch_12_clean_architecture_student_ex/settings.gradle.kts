@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ch_android_architecture_student_ex"
 include(":app")
- 

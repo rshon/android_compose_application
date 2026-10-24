@@ -3,24 +3,23 @@ package com.example.mediaapplication.data.player
 import android.content.Context
 import android.util.Log
 import androidx.annotation.OptIn
-import androidx.media3.exoplayer.ExoPlayer
-import com.example.mediaapplication.domain.port.VideoPlayerPort
+import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.VideoSize
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.SeekParameters
 import com.example.mediaapplication.constants.PlayerConstants
 import com.example.mediaapplication.domain.model.PlaybackState
+import com.example.mediaapplication.domain.model.VideoSurface
 import com.example.mediaapplication.domain.port.VideoPlayerEventListener
+import com.example.mediaapplication.domain.port.VideoPlayerPort
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
-import androidx.media3.common.PlaybackException
-import androidx.media3.common.VideoSize
-import com.example.mediaapplication.domain.model.VideoSurface
-
 
 @Singleton
 class ExoPlayerVideoAdapter @Inject constructor(
@@ -135,6 +134,7 @@ class ExoPlayerVideoAdapter @Inject constructor(
     override fun addEventListener(listener: VideoPlayerEventListener) {
         eventListeners.add(listener)
     }
+
     override fun removeEventListener(listener: VideoPlayerEventListener) {
         eventListeners.remove(listener)
     }
@@ -143,7 +143,7 @@ class ExoPlayerVideoAdapter @Inject constructor(
         Log.d(TAG, "+release")
         internalPlayer?.apply {
             stop()
-            internalPlayer?.removeListener(playerListener)
+            removeListener(playerListener)
             release()
         }
         internalPlayer = null

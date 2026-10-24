@@ -73,7 +73,7 @@ class MediaViewModel(
     fun playMusic(mediaItem: MediaItem) {
         viewModelScope.launch {
             // 현재 곡 인덱스 업데이트
-            val index = mediaItems.value.indexOf(mediaItem)
+            val index = mediaItems.value.indexOfFirst { it.filePath == mediaItem.filePath }
             if (index != -1) {
                 currentIndex.value = index
             }

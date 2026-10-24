@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ch_app_bind_service"
 include(":app")
- 

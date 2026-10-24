@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLDecoder
 import java.net.URLEncoder
 
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -59,7 +58,7 @@ fun MainNaviGraph(navController: NavHostController) {
                     println("Navigating to: music_player/$encodedFilePath")
                     navController.navigate("music_player/$encodedFilePath")
                 },
-                onVideoClick = { filePath ->                // ← 새로 추가한 콜백
+                onVideoClick = { filePath -> // ← 새로 추가한 콜백
                     val encoded = URLEncoder.encode(filePath, "UTF-8")
                     navController.navigate("video_player/$encoded")
                 }
@@ -98,12 +97,13 @@ fun MainNaviGraph(navController: NavHostController) {
             } ?: ""
 
             VideoPlayerScreen(
-                viewModel      = sharedViewModel,
-                navController  = navController,
-                uri            = filePath,
-                onBack         = {
+                viewModel = sharedViewModel,
+                navController = navController,
+                uri = filePath,
+                onBack = {
                     println("back from video screen")
-                    navController.popBackStack() }
+                    navController.popBackStack()
+                }
             )
         }
     }

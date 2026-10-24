@@ -7,24 +7,23 @@ import com.example.mediaapplication.domain.port.MediaPlayerPort
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Singleton
 
 //@Singleton
-class AndroidMediaPlayerPort @Inject constructor(): MediaPlayerPort {
+class AndroidMediaPlayerPort @Inject constructor() : MediaPlayerPort {
     private var mediaPlayer: MediaPlayer? = null
-    private val _isPlaying  = MutableStateFlow(false)
-    private val _progress   = MutableStateFlow(0)
-    private val _duration   = MutableStateFlow(0)
-    private val handler     = Handler(Looper.getMainLooper())
+    private val _isPlaying = MutableStateFlow(false)
+    private val _progress = MutableStateFlow(0)
+    private val _duration = MutableStateFlow(0)
+    private val handler = Handler(Looper.getMainLooper())
     private var updateJob: Job? = null
 
     override val isPlaying: Flow<Boolean> = _isPlaying
-    override val progress:  Flow<Int>     = _progress
-    override val duration:  Flow<Int>     = _duration
+    override val progress: Flow<Int> = _progress
+    override val duration: Flow<Int> = _duration
 
     override fun play(path: String, scope: CoroutineScope) {
         updateJob?.cancel()
@@ -35,7 +34,7 @@ class AndroidMediaPlayerPort @Inject constructor(): MediaPlayerPort {
             start()
         }
         _isPlaying.value = true
-        _duration.value  = mediaPlayer?.duration ?: 0
+        _duration.value = mediaPlayer?.duration ?: 0
 
         updateJob = scope.launch(Dispatchers.Main) {
             while (mediaPlayer?.isPlaying == true) {
@@ -69,7 +68,7 @@ class AndroidMediaPlayerPort @Inject constructor(): MediaPlayerPort {
         mediaPlayer?.release()
         mediaPlayer = null
         _isPlaying.value = false
-        _progress.value  = 0
-        _duration.value  = 0
+        _progress.value = 0
+        _duration.value = 0
     }
 }

@@ -5,7 +5,6 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
-import android.view.Surface
 import androidx.annotation.OptIn
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.util.UnstableApi
@@ -44,7 +43,7 @@ class MediaPlayerVideoAdapter @Inject constructor(
         const val MEDIA_PLAYER_STATE_PAUSED = 4
         const val MEDIA_PLAYER_STATE_PLAYBACK_COMPLETED = 5
         const val MEDIA_PLAYER_STATE_ERROR = -1
-        const val TAG = "MediaPlayerVideoPort"
+        const val TAG = "MediaPlayerVideoAdapter"
     }
 
     private var internalMediaPlayerState = MEDIA_PLAYER_STATE_IDLE
@@ -56,7 +55,7 @@ class MediaPlayerVideoAdapter @Inject constructor(
                 MEDIA_PLAYER_STATE_PREPARED,
                 MEDIA_PLAYER_STATE_PLAYING,
                 MEDIA_PLAYER_STATE_PAUSED -> PlaybackState.READY
-                MEDIA_PLAYER_STATE_PLAYBACK_COMPLETED  -> PlaybackState.ENDED
+                MEDIA_PLAYER_STATE_PLAYBACK_COMPLETED -> PlaybackState.ENDED
                 MEDIA_PLAYER_STATE_ERROR -> PlaybackState.IDLE
                 else -> PlaybackState.IDLE
             }
@@ -246,15 +245,18 @@ class MediaPlayerVideoAdapter @Inject constructor(
             Log.d(TAG, "MediaPlayer seeking to: $seekPosition ms from $currentPos ms")
             mediaPlayer?.seekTo(seekPosition.toInt())
 
-            val oldPosition = getCurrentPlayerPosition()
-            eventListeners.forEach { it.onPositionDiscontinuity(oldPosition, seekPosition) }
+            eventListeners.forEach { it.onPositionDiscontinuity(currentPos, seekPosition) }
         }
     }
 
     private fun releasePlayer() {
         try {
             mediaPlayer?.stop()
-            mediaPlayer?.reset()
+        } catch (e: Exception) {
+            // stop() throws IllegalStateException in Idle/Error state; release() must still run
+            Log.w(TAG, "Error stopping MediaPlayer", e)
+        }
+        try {
             mediaPlayer?.release()
         } catch (e: Exception) {
             Log.e(TAG, "Error releasing MediaPlayer", e)
@@ -339,6 +341,7 @@ class MediaPlayerVideoAdapter @Inject constructor(
     override fun addEventListener(listener: VideoPlayerEventListener) {
         eventListeners.add(listener)
     }
+
     override fun removeEventListener(listener: VideoPlayerEventListener) {
         eventListeners.remove(listener)
     }

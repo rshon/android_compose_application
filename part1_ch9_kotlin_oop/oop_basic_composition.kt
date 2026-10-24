@@ -6,35 +6,35 @@ data class PersonalInfo(val firstName: String, val lastName: String, var age: In
 data class AcademicInfo(var major: String, var grade: Int)
 
 class Student(
-    val personal_info: PersonalInfo,
-    val academic_info: AcademicInfo
+    val personalInfo: PersonalInfo,
+    val academicInfo: AcademicInfo
 ) {
     val fullName: String
-        get() = personal_info.fullName
+        get() = personalInfo.fullName
 
     val age: Int
-        get() = personal_info.age
+        get() = personalInfo.age
 
     fun printInfo() {
         println("Name: $fullName")
         println("Age: $age")
-        println("Major: ${academic_info.major}")
-        println("Grade Level: ${academic_info.grade}")
+        println("Major: ${academicInfo.major}")
+        println("Grade Level: ${academicInfo.grade}")
     }
 
     fun changeMajor(newMajor: String) {
-        academic_info.major = newMajor
+        academicInfo.major = newMajor
         println("$fullName's major changed to $newMajor.")
     }
 
     fun promoteGrade() {
-        academic_info.grade++
-        println("$fullName is now in grade ${academic_info.grade}.")
+        academicInfo.grade++
+        println("$fullName is now in grade ${academicInfo.grade}.")
     }
 
     fun increaseAge() {
-        personal_info.age++
-        println("$fullName's age increased to ${personal_info.age}.")
+        personalInfo.age++
+        println("$fullName's age increased to ${personalInfo.age}.")
     }
 }
 

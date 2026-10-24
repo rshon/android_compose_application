@@ -33,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,9 +75,11 @@ fun StudentApp() {
 fun StudentScreen() {
     val students = LocalStudentList.current
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         Text("Student list", style = MaterialTheme.typography.headlineSmall)
         Spacer(Modifier.height(8.dp))
 
@@ -102,7 +103,6 @@ fun StudentRow(student: Student) {
         Text(text = "Grade ${student.grade}")
     }
 }
-
 
 @Composable
 fun HoistingEx() {
@@ -280,5 +280,3 @@ fun SlotAPIEx2() {
 fun GreetingPreview() {
     RememberClickCount()
 }
-
-

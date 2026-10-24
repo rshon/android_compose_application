@@ -11,8 +11,8 @@ class StudentRepositoryImpl(
     override suspend fun add(student: Student) {
         dao.insert(
             Student(
-                id    = student.id,
-                name  = student.name,
+                id = student.id,
+                name = student.name,
                 grade = student.grade
             )
         )

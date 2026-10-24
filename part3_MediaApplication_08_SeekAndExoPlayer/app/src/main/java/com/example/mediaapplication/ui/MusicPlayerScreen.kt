@@ -1,6 +1,5 @@
 package com.example.mediaapplication.ui
 
-import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import androidx.compose.foundation.Image
@@ -102,8 +101,11 @@ fun MusicPlayerScreen(
                     .background(if (bitmap == null) Color.Gray else Color.Transparent)
             ) {
                 Image(
-                    bitmap = (bitmap ?: BitmapFactory.decodeResource(
-                        context.resources, android.R.drawable.ic_dialog_alert)).asImageBitmap(),
+                    bitmap = (
+                        bitmap ?: BitmapFactory.decodeResource(
+                            context.resources, android.R.drawable.ic_dialog_alert
+                        )
+                    ).asImageBitmap(),
                     contentDescription = "Album Art",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -129,9 +131,11 @@ fun MusicPlayerScreen(
             ) {
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
                     IconButton(onClick = { viewModel.playPrevious(context) }) {
-                        Icon(imageVector = Icons.Default.SkipPrevious,
+                        Icon(
+                            imageVector = Icons.Default.SkipPrevious,
                             contentDescription = "Previous",
-                            tint = Color.Black)
+                            tint = Color.Black
+                        )
                     }
                 }
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
@@ -145,9 +149,11 @@ fun MusicPlayerScreen(
                 }
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
                     IconButton(onClick = { viewModel.playNext(context) }) {
-                        Icon(imageVector = Icons.Default.SkipNext,
+                        Icon(
+                            imageVector = Icons.Default.SkipNext,
                             contentDescription = "Next",
-                            tint = Color.Black)
+                            tint = Color.Black
+                        )
                     }
                 }
             }

@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ch_text_and_button"
 include(":app")
- 

@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @param items 전체 MediaItem 목록
  * @param currentIndex 현재 선택된 인덱스
  * @param shuffle 셔플 모드 여부
- * @param filterType MUSIC, VIDEO, BOTH 등
+ * @param filterType MUSIC, VIDEO, MUSIC_VIDEO
  * @param direction +1 이면 다음, -1 이면 이전
  */
 class NavigateMediaUseCase @Inject constructor() {
@@ -26,9 +26,9 @@ class NavigateMediaUseCase @Inject constructor() {
         val indices = items
             .withIndex()
             .filter { (_, item) ->
-                when(filterType) {
-                    MediaTypeFilter.MUSIC       -> item.type == MediaType.MUSIC
-                    MediaTypeFilter.VIDEO       -> item.type == MediaType.VIDEO
+                when (filterType) {
+                    MediaTypeFilter.MUSIC -> item.type == MediaType.MUSIC
+                    MediaTypeFilter.VIDEO -> item.type == MediaType.VIDEO
                     MediaTypeFilter.MUSIC_VIDEO -> true
                 }
             }
@@ -48,8 +48,8 @@ class NavigateMediaUseCase @Inject constructor() {
             next
         } else {
             // 4) 순차 모드: 다음/이전
-            val newPos = when(direction) {
-                Direction.NEXT     -> (pos + 1) % indices.size
+            val newPos = when (direction) {
+                Direction.NEXT -> (pos + 1) % indices.size
                 Direction.PREVIOUS -> (pos - 1 + indices.size) % indices.size
             }
             indices[newPos]

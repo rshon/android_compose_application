@@ -1,66 +1,65 @@
-
 interface YearCalculationStrategy {
-    fun calculate_remaining_years(grade: Int, max_grade: Int): Int
+    fun calculateRemainingYears(grade: Int, maxGrade: Int): Int
 }
 
 class DefaultYearCalculation : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val remaining = max_grade - grade
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val remaining = maxGrade - grade
         return if (remaining < 0) 0 else remaining
     }
 }
 
 class UndergraduateYearCalculation(
-    private val has_internship: Boolean
+    private val hasInternship: Boolean
 ) : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val base_years = DefaultYearCalculation().calculate_remaining_years(grade, max_grade)
-        return if (has_internship) base_years - 1 else base_years
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
+        return if (hasInternship) (baseYears - 1).coerceAtLeast(0) else baseYears
     }
 }
 
 class GraduateYearCalculation(
-    private val thesis_title: String
+    private val thesisTitle: String
 ) : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val base_years = DefaultYearCalculation().calculate_remaining_years(grade, max_grade)
-        return if (thesis_title.isNotEmpty()) base_years else base_years + 1
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
+        return if (thesisTitle.isNotEmpty()) baseYears else baseYears + 1
     }
 }
 
 class ExchangeYearCalculation(
-    private val exchange_duration: Int
+    private val exchangeDuration: Int
 ) : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val base_years = DefaultYearCalculation().calculate_remaining_years(grade, max_grade)
-        return base_years + exchange_duration
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
+        return baseYears + exchangeDuration
     }
 }
 
 interface InternshipCertifiable {
-    fun certify_internship(): String
+    fun certifyInternship(): String
 }
 
 interface ThesisVerifiable {
-    fun verify_thesis_status(): String
+    fun verifyThesisStatus(): String
 }
 
 open class Student(
     protected val name: String,
     protected val major: String,
     protected var grade: Int,
-    protected val max_grade: Int,
-    private val calculation_strategy: YearCalculationStrategy
+    protected val maxGrade: Int,
+    private val calculationStrategy: YearCalculationStrategy
 ) {
-    open fun calculate_remaining_years(): Int {
-        return calculation_strategy.calculate_remaining_years(grade, max_grade)
+    open fun calculateRemainingYears(): Int {
+        return calculationStrategy.calculateRemainingYears(grade, maxGrade)
     }
 
-    open fun print_info() {
+    open fun printInfo() {
         println("Name: $name")
         println("Major: $major")
         println("Grade: $grade")
-        println("Max Grade: $max_grade")
+        println("Max Grade: $maxGrade")
     }
 }
 
@@ -68,24 +67,24 @@ class UndergraduateStudent(
     name: String,
     major: String,
     grade: Int,
-    protected val has_internship: Boolean
+    protected val hasInternship: Boolean
 ) : Student(
     name,
     major,
     grade,
-    max_grade = 4,
-    calculation_strategy = UndergraduateYearCalculation(has_internship)
+    maxGrade = 4,
+    calculationStrategy = UndergraduateYearCalculation(hasInternship)
 ), InternshipCertifiable {
-    override fun print_info() {
+    override fun printInfo() {
         println("Name: $name (Undergraduate)")
         println("Major: $major")
         println("Grade: $grade")
-        println("Max Grade: $max_grade")
-        println("Has Internship: $has_internship")
+        println("Max Grade: $maxGrade")
+        println("Has Internship: $hasInternship")
     }
 
-    override fun certify_internship(): String {
-        return if (has_internship) "Internship Certified" else "No Internship"
+    override fun certifyInternship(): String {
+        return if (hasInternship) "Internship Certified" else "No Internship"
     }
 }
 
@@ -93,24 +92,24 @@ class GraduateStudent(
     name: String,
     major: String,
     grade: Int,
-    protected val thesis_title: String
+    protected val thesisTitle: String
 ) : Student(
     name,
     major,
     grade,
-    max_grade = 2,
-    calculation_strategy = GraduateYearCalculation(thesis_title)
+    maxGrade = 2,
+    calculationStrategy = GraduateYearCalculation(thesisTitle)
 ), ThesisVerifiable {
-    override fun print_info() {
+    override fun printInfo() {
         println("Name: $name (Graduate)")
         println("Major: $major")
         println("Grade: $grade")
-        println("Max Grade: $max_grade")
-        println("Thesis Title: $thesis_title")
+        println("Max Grade: $maxGrade")
+        println("Thesis Title: $thesisTitle")
     }
 
-    override fun verify_thesis_status(): String {
-        return if (thesis_title.isNotEmpty()) "Thesis Submitted" else "Thesis Pending"
+    override fun verifyThesisStatus(): String {
+        return if (thesisTitle.isNotEmpty()) "Thesis Submitted" else "Thesis Pending"
     }
 }
 
@@ -118,20 +117,20 @@ class ExchangeStudent(
     name: String,
     major: String,
     grade: Int,
-    protected val exchange_duration: Int
+    protected val exchangeDuration: Int
 ) : Student(
     name,
     major,
     grade,
-    max_grade = 3,
-    calculation_strategy = ExchangeYearCalculation(exchange_duration)
+    maxGrade = 3,
+    calculationStrategy = ExchangeYearCalculation(exchangeDuration)
 ) {
-    override fun print_info() {
+    override fun printInfo() {
         println("Name: $name (Exchange)")
         println("Major: $major")
         println("Grade: $grade")
-        println("Max Grade: $max_grade")
-        println("Exchange Duration: $exchange_duration")
+        println("Max Grade: $maxGrade")
+        println("Exchange Duration: $exchangeDuration")
     }
 }
 
@@ -143,18 +142,18 @@ fun main() {
     )
 
     for (student in students) {
-        println("Remaining Years: ${student.calculate_remaining_years()}")
-        student.print_info()
+        println("Remaining Years: ${student.calculateRemainingYears()}")
+        student.printInfo()
         println()
     }
 
     val undergrads: List<InternshipCertifiable> = students.filterIsInstance<UndergraduateStudent>()
     for (student in undergrads) {
-        println("${student.certify_internship()}")
+        println(student.certifyInternship())
     }
 
     val grads: List<ThesisVerifiable> = students.filterIsInstance<GraduateStudent>()
     for (student in grads) {
-        println("${student.verify_thesis_status()}")
+        println(student.verifyThesisStatus())
     }
 }

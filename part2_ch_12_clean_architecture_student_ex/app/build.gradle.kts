@@ -68,7 +68,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     // Room 어노테이션 정의 + 런타임
     implementation("androidx.room:room-runtime:2.7.0")
     // (선택) 코틀린 확장 함수
@@ -81,14 +80,10 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-
-
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0") // 또는 최신 버전
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
 
 //    implementation("com.google.dagger:hilt-android:2.48")
 //    kapt("com.google.dagger:hilt-android-compiler:2.48")
 //    implementation("androidx.hilt:hilt-navigation-compose:1.1.0") // Compose에서 ViewModel 사용 시 (선택 사항)
-
-    kapt("androidx.room:room-compiler:2.7.0")
 }

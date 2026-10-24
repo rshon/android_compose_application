@@ -16,9 +16,9 @@ class GreetingPaparazziTest {
     )
 
     @Test
-    fun greetingCard_default() {
+    fun greetingCardDefault() {
         paparazzi.snapshot {
-            Greeting(
+            ThemeTestScene(
                 name = "Android"
             )
         }

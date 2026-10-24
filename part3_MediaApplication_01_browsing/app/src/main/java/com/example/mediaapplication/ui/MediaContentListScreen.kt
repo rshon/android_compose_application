@@ -2,9 +2,12 @@ package com.example.mediaapplication.ui
 
 import android.Manifest
 import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -19,13 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
+import com.example.mediaapplication.data.model.MediaItem
+import com.example.mediaapplication.data.model.MediaType
 import com.example.mediaapplication.viewmodel.MediaViewModel
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.lazy.LazyListState
-import com.example.mediaapplication.data.repository.MediaRepository
-import kotlin.math.max
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -138,8 +137,7 @@ fun CustomScrollbar(
         derivedStateOf { listState.layoutInfo.viewportSize.height }
     }
 
-    if (itemCount <= 0)
-        return
+    if (itemCount <= 0) return
 
     Box(
         modifier = modifier
@@ -168,7 +166,7 @@ fun CustomScrollbar(
 }
 
 @Composable
-fun MediaItemRow(item: com.example.mediaapplication.data.model.MediaItem) {
+fun MediaItemRow(item: MediaItem) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,9 +176,9 @@ fun MediaItemRow(item: com.example.mediaapplication.data.model.MediaItem) {
     ) {
         Icon(
             imageVector = when (item.type) {
-                com.example.mediaapplication.data.model.MediaType.VIDEO -> Icons.Default.PlayArrow
-                com.example.mediaapplication.data.model.MediaType.MUSIC -> Icons.Default.MusicNote
-                com.example.mediaapplication.data.model.MediaType.IMAGE -> Icons.Default.Photo
+                MediaType.VIDEO -> Icons.Default.PlayArrow
+                MediaType.MUSIC -> Icons.Default.MusicNote
+                MediaType.IMAGE -> Icons.Default.Photo
             },
             contentDescription = item.title,
             modifier = Modifier.size(40.dp),

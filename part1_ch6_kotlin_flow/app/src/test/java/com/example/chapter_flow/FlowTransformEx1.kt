@@ -24,7 +24,7 @@ fun testTransform() = runBlocking {
         .collect { println(it) }
 }
 
-fun testFlatmapconcat() = runBlocking {
+fun testFlatMapConcat() = runBlocking {
     flowOf(1, 2, 3)
         .flatMapConcat { value ->
             flow {
@@ -48,7 +48,6 @@ fun main() {
 //    testFilter()
 //    testTransform()
 
-    testFlatmapconcat()
+    testFlatMapConcat()
 //    testZip()
 }
-

@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.ch_app_bind_service.service.MusicService
-import kotlinx.coroutines.flow.StateFlow
 
 private const val READ_EXTERNAL_STORAGE_PERMISSION_CODE = 200
 
@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == READ_EXTERNAL_STORAGE_PERMISSION_CODE) {
-            Log.d("MainActivity", "grant results = ${grantResults.isNotEmpty()}, ${grantResults.firstOrNull()}")            
+            Log.d("MainActivity", "grant results = ${grantResults.isNotEmpty()}, ${grantResults.firstOrNull()}")
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 isPermissionGranted.value = true
                 musicUri.value = Uri.parse("/sdcard/06_너에게들려주고싶은이야기.mp3")
@@ -175,4 +175,3 @@ fun MusicPlayerScreen(
         }
     }
 }
-

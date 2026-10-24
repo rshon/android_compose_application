@@ -1,4 +1,3 @@
-
 interface Bird {
     fun fly()
 }
@@ -6,6 +5,12 @@ interface Bird {
 class Duck : Bird {
     override fun fly() {
         println("오리가 힘차게 날아갑니다!")
+    }
+}
+
+class Sparrow : Bird {
+    override fun fly() {
+        println("참새가 날아갑니다!")
     }
 }
 

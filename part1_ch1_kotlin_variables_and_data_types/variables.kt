@@ -1,16 +1,14 @@
-
-
-fun testImmutalbeVariables() {
+fun testImmutableVariables() {
     val message = "Hello, Kotlin!"  // message에 "Hello, Kotlin!" 할당
     println(message)  // 출력: Hello, Kotlin!
 
     // message = "Hello, World!"   // 컴파일 오류! val 변수는 재할당할 수 없다.
 
-    val pi = 3.14159   // 원주율 pi는 변하지 않는 값
+    val pi = 3.14159  // 원주율 pi는 변하지 않는 값
     println(pi)
 }
 
-fun testMutalbeVariables() {
+fun testMutableVariables() {
     var count = 10  // count에 10 할당
     println(count)  // 출력: 10
 

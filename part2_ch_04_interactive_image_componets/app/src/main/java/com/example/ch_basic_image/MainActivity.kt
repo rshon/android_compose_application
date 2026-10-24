@@ -221,26 +221,33 @@ fun GalleryScreen() {
 
         when (hasPermission) {
             null -> Spacer(modifier = Modifier.height(1.dp))
-            false -> Box(modifier = Modifier.fillMaxSize(),
+            false -> Box(
+                modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("이미지를 보려면 저장소 읽기 권한이 필요합니다.",
-                    modifier = Modifier.padding(16.dp))
+                Text(
+                    "이미지를 보려면 저장소 읽기 권한이 필요합니다.",
+                    modifier = Modifier.padding(16.dp)
+                )
             }
             true -> {
                 if (sortedImages.isEmpty() && imageInfos.isNotEmpty()) {
                     // while loading (produceState has not been yet completed)
-                    Box(modifier = Modifier.fillMaxSize(),
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
                         CircularProgressIndicator()
                     }
                 } else if (sortedImages.isEmpty()) {
-                    Box(modifier = Modifier.fillMaxSize(),
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("표시할 이미지가 없습니다.",
-                            style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            "표시할 이미지가 없습니다.",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 } else {
                     ImageGridWithFullscreenDialog(
@@ -315,4 +322,3 @@ fun GalleryScreenPreview() {
         GalleryScreen()
     }
 }
-

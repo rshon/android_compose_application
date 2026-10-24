@@ -6,8 +6,8 @@ interface Student {
 }
 
 class UndergraduateStudent(
-    override val name: String, 
-    override val major: String, 
+    override val name: String,
+    override val major: String,
     override val grade: Int
 ) : Student {
     override fun introduce() {
@@ -18,16 +18,16 @@ class UndergraduateStudent(
 }
 
 class GraduateStudent(
-    override val name: String, 
-    override val major: String, 
-    override val grade: Int, 
-    val thesis_topic: String
+    override val name: String,
+    override val major: String,
+    override val grade: Int,
+    val thesisTopic: String
 ) : Student {
     override fun introduce() {
         println("Name: $name (Graduate)")
         println("Major: $major")
         println("Grade: $grade")
-        println("Thesis Topic: $thesis_topic")
+        println("Thesis Topic: $thesisTopic")
     }
 }
 
@@ -38,7 +38,6 @@ fun main() {
     val graduateStudent = GraduateStudent("Bar", "Artificial Intelligence", 5, "Deep Learning")
     graduateStudent.introduce()
 }
-
 
 // A 모듈에 있는 코드
 internal class InternalClass {

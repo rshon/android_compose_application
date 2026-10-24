@@ -1,9 +1,9 @@
 package com.example.mediaapplication.data.player
 
 import android.content.Context
+import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.mediaapplication.domain.port.VideoPlayerPort
-import androidx. media3.common.MediaItem
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,13 +35,13 @@ class AndroidVideoPlayerPort @Inject constructor(
     override fun play(uri: String, scope: CoroutineScope) {
         scope.launch(Dispatchers.Main) {
             val player = getOrCreatePlayer() // ExoPlayer를 가져오거나 새로 생성
-            player.setMediaItem(androidx.media3.common.MediaItem.fromUri(uri))
+            player.setMediaItem(MediaItem.fromUri(uri))
             player.prepare()
             player.play()
         }
     }
 
-    // 기존 메서드들은 null 안전 호출(?. )을 사용하도록 변경
+    // 기존 메서드들은 null 안전 호출(?.)을 사용하도록 변경
     override fun pause() = internalPlayer?.pause() ?: Unit
     override fun resume() = internalPlayer?.play() ?: Unit
     override fun seekTo(ms: Long) = internalPlayer?.seekTo(ms) ?: Unit

@@ -1,42 +1,42 @@
 package com.example.ch_test
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Rule
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.ch_test.domain.model.Student
 import com.example.ch_test.domain.repository.StudentRepository
+import com.example.ch_test.presentation.ui.student.StudentUiState
 import com.example.ch_test.presentation.ui.student.StudentViewModel
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import org.junit.Test
-import org.junit.Before
-import org.junit.After
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.setMain
-import kotlinx.coroutines.test.resetMain
-import io.mockk.mockk
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.TestDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import com.example.ch_test.domain.model.Student
-import com.example.ch_test.presentation.ui.student.StudentUiState
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class StudentViewModelTest {
 
-    // Main Dispatcher를 테스트용으로 교체하기 위한 규칙
+    // Architecture Components의 백그라운드 작업을 동기적으로 실행하기 위한 규칙
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: StudentViewModel
-    private lateinit var repository: StudentRepository  // Mock으로 대체될 의존성
+    private lateinit var repository: StudentRepository // Mock으로 대체될 의존성
     private lateinit var testDispatcher: TestDispatcher
 
     @Before
     fun setUp() {
         testDispatcher = UnconfinedTestDispatcher()
-        Dispatchers.setMain(testDispatcher)  // Main Dispatcher를 테스트용으로 설정
+        Dispatchers.setMain(testDispatcher) // Main Dispatcher를 테스트용으로 설정
 
         // 1. Repository 의존성을 Mock 객체로 생성
         repository = mockk()
@@ -51,7 +51,7 @@ class StudentViewModelTest {
     }
 
     @Test
-    fun `getStudent - Repository가 학생 데이터를 성공적으로 반환하면, UI 상태는 Success가 된다`(): Unit = runTest {
+    fun `getStudent - Repository가 학생 데이터를 성공적으로 반환하면, UI 상태는 Success가 된다`() = runTest {
         // --- 1. Arrange (준비): Mock 객체의 행동 정의 (coEvery 사용) ---
         val studentId = "20250001"
         val dummyStudent = Student("홍길동", studentId, 3, "컴퓨터공학과")

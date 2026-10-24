@@ -1,11 +1,11 @@
 package com.example.mediaapplication.di
 
+import com.example.mediaapplication.BuildConfig
 import com.example.mediaapplication.data.player.PlayerEngineType
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import com.example.mediaapplication.BuildConfig
 
 @Module
 @InstallIn(ViewModelComponent::class)

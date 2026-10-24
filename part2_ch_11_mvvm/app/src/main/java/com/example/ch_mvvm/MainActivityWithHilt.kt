@@ -8,7 +8,6 @@ import com.example.ch_mvvm.data.StudentRepositoryInterface
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class MainActivityWithHilt : ComponentActivity() {
     @Inject
@@ -22,5 +21,3 @@ class MainActivityWithHilt : ComponentActivity() {
         }
     }
 }
-
-

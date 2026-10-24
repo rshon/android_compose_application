@@ -1,9 +1,7 @@
 package com.example.mediaapplication.di
 
-import android.content.Context
 import com.example.mediaapplication.data.repository.MediaRepositoryImpl
 import com.example.mediaapplication.domain.MediaRepository
-import com.example.mediaapplication.domain.usecase.PlayMusicUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,7 +1,6 @@
 package com.example.ch_modifier
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,15 +11,6 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.ch_modifier.ui.theme.Ch_modifierTheme
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -38,22 +28,24 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.TextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
@@ -61,7 +53,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.DrawResult
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
@@ -75,11 +67,8 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -92,7 +81,6 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -101,8 +89,8 @@ import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.FractionalThreshold
 import androidx.wear.compose.material.rememberSwipeableState
 import androidx.wear.compose.material.swipeable
+import com.example.ch_modifier.ui.theme.Ch_modifierTheme
 import kotlin.math.roundToInt
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,7 +166,7 @@ fun AnimateContentSizeExample() {
             Text(
                 text = if (expanded) {
                     "This one is very long sentence for showing that the animation effect is applied \n" +
-                            "when you click or tatp the box!"
+                            "when you click or tap the box!"
                 } else {
                     "It's short!"
                 }
@@ -267,8 +255,8 @@ fun DrawBehindExample() {
                 drawRect(
                     color = Color.Red,
                     topLeft = Offset(padding, padding),
-                    size = androidx.compose.ui.geometry.Size(innerWidth, innerHeight),
-                    style = androidx.compose.ui.graphics.drawscope.Stroke(
+                    size = Size(innerWidth, innerHeight),
+                    style = Stroke(
                         width = 2.dp.toPx()
                     )
                 )
@@ -417,11 +405,11 @@ fun ClipShapeExample() {
     Box(
         modifier = Modifier
             .size(100.dp)
-            .background(Color.DarkGray)
-            .clip(CutCornerShape(topStart = 24.dp, bottomEnd = 24.dp)),
+            .clip(CutCornerShape(topStart = 24.dp, bottomEnd = 24.dp))
+            .background(Color.DarkGray),
         contentAlignment = Alignment.Center
     ) {
-        Text("Clipped Content\nand Background", color=Color.White)
+        Text("Clipped Content\nand Background", color = Color.White)
     }
 }
 
@@ -575,8 +563,11 @@ fun FillVsMatchParentSizeDemo() {
                                 .padding(10.dp)
                                 .background(Color.White)
                         ) {
-                            Text("Parent Content",
-                                modifier = Modifier.padding(10.dp), color = Color.Black)
+                            Text(
+                                "Parent Content",
+                                modifier = Modifier.padding(10.dp),
+                                color = Color.Black
+                            )
 
                             Box(
                                 modifier = Modifier
@@ -619,7 +610,7 @@ fun LayoutModifierExamples() {
                     .padding(paddingValues)
                     .padding(16.dp)
                     .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(16.dp) // 예제 사이 간격
+                verticalArrangement = Arrangement.spacedBy(16.dp) // 예제 사이 간격
             ) {
                 Text("1. fillMaxSize(): 부모의 최대 크기를 채움")
                 FillMaxSizeExample()
@@ -643,8 +634,9 @@ fun LayoutModifierExamples() {
 
                 Text("6. matchParentSize(): 부모 Box의 크기와 동일하게 (BoxScope 내)")
                 MatchParentSizeExample()
+            }
         }
-    })
+    )
 }
 
 @Composable
@@ -768,7 +760,7 @@ fun MatchParentSizeExample() {
     }
 }
 
-private val MoveUnit = 10.dp
+private val MOVE_UNIT = 10.dp
 
 @Composable
 fun OnKeyEventKeyEventBoxEx() {
@@ -783,23 +775,23 @@ fun OnKeyEventKeyEventBoxEx() {
                 if (event.type == KeyEventType.KeyDown) {
                     when (event.key) {
                         Key.DirectionUp -> {
-                            message = "Up"
-                            offsetY -= MoveUnit
+                            message = "up"
+                            offsetY -= MOVE_UNIT
                         }
 
                         Key.DirectionDown -> {
                             message = "down"
-                            offsetY += MoveUnit
+                            offsetY += MOVE_UNIT
                         }
 
                         Key.DirectionLeft -> {
                             message = "left"
-                            offsetX -= MoveUnit
+                            offsetX -= MOVE_UNIT
                         }
 
                         Key.DirectionRight -> {
                             message = "right"
-                            offsetX += MoveUnit
+                            offsetX += MOVE_UNIT
                         }
 
                         Key.Enter -> message = "enter"
@@ -822,7 +814,8 @@ fun OnKeyEventKeyEventBoxEx() {
                 .border(2.dp, Color.Black),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = message,
+            Text(
+                text = message,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -952,7 +945,7 @@ fun FocusableBox(
     }
 }
 
-private val BoxSize = 80.dp
+private val BOX_SIZE = 80.dp
 
 @Composable
 fun DragPointerInputEx() {
@@ -961,8 +954,8 @@ fun DragPointerInputEx() {
     ) {
         val density = LocalDensity.current
 
-        val boxWidthPx = with(density) { BoxSize.toPx() }
-        val boxHeightPx = with(density) { BoxSize.toPx() }
+        val boxWidthPx = with(density) { BOX_SIZE.toPx() }
+        val boxHeightPx = with(density) { BOX_SIZE.toPx() }
 
         val parentWidthPx = with(density) { maxWidth.toPx() }
         val parentHeightPx = with(density) { maxHeight.toPx() }
@@ -1003,13 +996,12 @@ fun DragPointerInputEx() {
                     .offset {
                         IntOffset(offsetX.roundToInt(), offsetY.roundToInt())
                     }
-                    .size(BoxSize)
+                    .size(BOX_SIZE)
                     .background(Color.Green)
             )
         }
     }
 }
-
 
 @Composable
 fun DetectTapPointerInputEx() {
@@ -1155,7 +1147,6 @@ fun SwipeableEx() {
     }
 }
 
-
 @Composable
 fun DragTextWithAnimation() {
     var offsetX by remember { mutableStateOf(0f) }
@@ -1275,7 +1266,6 @@ fun DragText() {
     )
 }
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ClickTest() {
@@ -1323,4 +1313,3 @@ fun ClickTest() {
         }
     }
 }
-

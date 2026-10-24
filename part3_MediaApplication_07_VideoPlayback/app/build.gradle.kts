@@ -79,8 +79,6 @@ dependencies {
 //    kapt("com.google.dagger:hilt-android-compiler:2.48")
 //    implementation("androidx.hilt:hilt-navigation-compose:1.1.0") // Compose에서 ViewModel 사용 시 (선택 사항)
 
-    kapt("androidx.room:room-compiler:2.7.0")
-
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation("androidx.compose.material3:material3:1.2.1")

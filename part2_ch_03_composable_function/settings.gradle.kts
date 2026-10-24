@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "composable_function"
 include(":app")
- 

@@ -1,6 +1,5 @@
 package com.example.mediaapplication.ui
 
-import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import androidx.compose.foundation.Image
@@ -48,9 +47,7 @@ fun MusicPlayerScreen(
         )
     }
 
-    val currentFilePath by derivedStateOf {
-        currentMediaItem?.filePath ?: filePath
-    }
+    val currentFilePath = currentMediaItem?.filePath ?: filePath
 
     // logging when file is changed
     LaunchedEffect(currentFilePath) {
@@ -129,9 +126,11 @@ fun MusicPlayerScreen(
             ) {
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
                     IconButton(onClick = { viewModel.playPrevious(context) }) {
-                        Icon(imageVector = Icons.Default.SkipPrevious,
+                        Icon(
+                            imageVector = Icons.Default.SkipPrevious,
                             contentDescription = "Previous",
-                            tint = Color.Black)
+                            tint = Color.Black
+                        )
                     }
                 }
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
@@ -145,9 +144,11 @@ fun MusicPlayerScreen(
                 }
                 Box(modifier = Modifier.size(60.dp).border(1.dp, Color.Black)) {
                     IconButton(onClick = { viewModel.playNext(context) }) {
-                        Icon(imageVector = Icons.Default.SkipNext,
+                        Icon(
+                            imageVector = Icons.Default.SkipNext,
                             contentDescription = "Next",
-                            tint = Color.Black)
+                            tint = Color.Black
+                        )
                     }
                 }
             }

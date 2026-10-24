@@ -12,7 +12,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ch_mvvm.data.StudentRepository
@@ -21,7 +20,6 @@ import com.example.ch_mvvm.data.StudentRepositoryInterface
 import com.example.ch_mvvm.domain.Student
 import com.example.ch_mvvm.ui.theme.StudentViewModel
 import com.example.ch_mvvm.ui.theme.StudentViewModelFactory
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +40,7 @@ fun StudentScreen(repository: StudentRepository) {
     val grade by viewModel.grade.collectAsState()
     val studentInfo by viewModel.studentInfo.collectAsState()
 
-    Scaffold { paddingValues ->  // receives paddingValues
+    Scaffold { paddingValues -> // receives paddingValues
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -89,7 +87,6 @@ fun StudentScreen(repository: StudentRepository) {
 //---------------------------------------------------------------
 // EX 2 - depends on abstraction
 //---------------------------------------------------------------
-
 
 interface RepositoryFactory {
     fun createStudentRepository(): StudentRepositoryInterface

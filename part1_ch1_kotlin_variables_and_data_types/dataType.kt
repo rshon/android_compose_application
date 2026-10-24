@@ -1,4 +1,3 @@
-
 fun declareNumericTypes() {
     val byteValue: Byte = 10
     val shortValue: Short = 1000
@@ -52,7 +51,7 @@ fun testBooleanType() {
 fun testStringType1() {
 
     val name = "Kotlin"
-    println("안녕하세요, $name!")   // 출력: 안녕하세요, Kotlin!
+    println("안녕하세요, $name!")  // 출력: 안녕하세요, Kotlin!
 
     val num1 = 10
     val num2 = 20

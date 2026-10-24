@@ -2,13 +2,12 @@ package com.example.mediaapplication.data.player
 
 import android.content.Context
 import androidx.annotation.OptIn
-import androidx.media3.exoplayer.ExoPlayer
-import com.example.mediaapplication.domain.port.VideoPlayerPort
-import androidx. media3.common.MediaItem
+import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.SeekParameters
-import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import com.example.mediaapplication.domain.port.VideoPlayerPort
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +20,7 @@ class AndroidVideoPlayerPort @Inject constructor(
     @ApplicationContext
     private val context: Context
 ) : VideoPlayerPort {
+    @Volatile
     private var internalPlayer: ExoPlayer? = null
 
     @OptIn(UnstableApi::class)
@@ -39,13 +39,12 @@ class AndroidVideoPlayerPort @Inject constructor(
 //                        MediaCodecSelector.DEFAULT.getDecoderInfos(mimeType, requiresSecureDecoder)
 //                    }
                     .build()
-                .apply {
-                    setSeekParameters(SeekParameters.EXACT)
-
-                }
-                .also {
-                    internalPlayer = it // 새로 생성된 인스턴스를 할당
-                }
+                    .apply {
+                        setSeekParameters(SeekParameters.EXACT)
+                    }
+                    .also {
+                        internalPlayer = it // 새로 생성된 인스턴스를 할당
+                    }
             }
         }
     }
@@ -53,7 +52,7 @@ class AndroidVideoPlayerPort @Inject constructor(
     override fun play(uri: String, scope: CoroutineScope) {
         scope.launch(Dispatchers.Main) {
             val player = getOrCreatePlayer() // ExoPlayer를 가져오거나 새로 생성
-            player.setMediaItem(androidx.media3.common.MediaItem.fromUri(uri))
+            player.setMediaItem(MediaItem.fromUri(uri))
             player.prepare()
             player.play()
         }
@@ -116,7 +115,6 @@ class AndroidVideoPlayerPort @Inject constructor(
     }
 
     override fun addVideoSizeListener(listener: (width: Int, height: Int) -> Unit) {
-
     }
 
     override fun removeVideoSizeListener(listener: (width: Int, height: Int) -> Unit) {

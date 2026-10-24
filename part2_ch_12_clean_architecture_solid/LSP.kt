@@ -1,16 +1,14 @@
-
-
 interface Animal {
     fun makeSound()
 }
 
-class Dog: Animal {
+class Dog : Animal {
     override fun makeSound() {
         println("Woof")
     }
 }
 
-class Cat: Animal {
+class Cat : Animal {
     override fun makeSound() {
         println("Meow")
     }
@@ -21,11 +19,10 @@ fun testAnimal() {
 
     animal = Dog()
     animal.makeSound()
-    
+
     animal = Cat()
     animal.makeSound()
 }
-
 
 abstract class Student(
     protected val name: String,
@@ -86,16 +83,13 @@ class GraduateStudent(
 
 fun main() {
     val undergrad = UndergraduateStudent("Foo", "Computer Science", 2, true)
-    val gradWithThesis = GraduateStudent("Bob", "Physics", 1, "")
-    val gradNoThesis = GraduateStudent("Boo", "Electrical Engineering", 1, "AI Energy Optimization")
+    val gradNoThesis = GraduateStudent("Bob", "Physics", 1, "")
+    val gradWithThesis = GraduateStudent("Boo", "Electrical Engineering", 1, "AI Energy Optimization")
 
-    val students: List<Student> = listOf(undergrad, gradWithThesis, gradNoThesis)
+    val students: List<Student> = listOf(undergrad, gradNoThesis, gradWithThesis)
     for (student in students) {
         println("Remaining Years: ${student.calculateRemainingYears()}")
         student.printInfo()
         println()
     }
 }
-
-
-

@@ -25,6 +25,6 @@ fun main() = runBlocking {
 
     println("starts to collect")
     studentFlow.collect { student ->
-        println("Collecting: ${student.name} (ID: ${student.major}) - ${student.grade}")
+        println("Collecting: ${student.name} (Major: ${student.major}) - ${student.grade}")
     }
 }

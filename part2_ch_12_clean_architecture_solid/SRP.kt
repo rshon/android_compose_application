@@ -1,49 +1,49 @@
 import kotlin.reflect.KClass
 
 interface YearCalculationStrategy {
-    fun calculate_remaining_years(grade: Int, max_grade: Int): Int
+    fun calculateRemainingYears(grade: Int, maxGrade: Int): Int
 }
 
 class DefaultYearCalculation : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val remaining = max_grade - grade
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val remaining = maxGrade - grade
         return if (remaining < 0) 0 else remaining
     }
 }
 
 class UndergraduateYearCalculation(
-    private val has_internship: Boolean
+    private val hasInternship: Boolean
 ) : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val base_years = DefaultYearCalculation().calculate_remaining_years(grade, max_grade)
-        return if (has_internship) base_years - 1 else base_years
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
+        return if (hasInternship) (baseYears - 1).coerceAtLeast(0) else baseYears
     }
 }
 
 class GraduateYearCalculation(
-    private val thesis_title: String
+    private val thesisTitle: String
 ) : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val base_years = DefaultYearCalculation().calculate_remaining_years(grade, max_grade)
-        return if (thesis_title.isNotEmpty()) base_years else base_years + 1
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
+        return if (thesisTitle.isNotEmpty()) baseYears else baseYears + 1
     }
 }
 
 class ExchangeYearCalculation(
-    private val exchange_duration: Int
+    private val exchangeDuration: Int
 ) : YearCalculationStrategy {
-    override fun calculate_remaining_years(grade: Int, max_grade: Int): Int {
-        val base_years = DefaultYearCalculation().calculate_remaining_years(grade, max_grade)
-        return base_years + exchange_duration
+    override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
+        val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
+        return baseYears + exchangeDuration
     }
 }
 
 interface InternshipCertifiable {
-    fun certify_internship(): String
+    fun certifyInternship(): String
 }
 
 interface ThesisVerifiable {
-    fun verify_thesis_status(): String
+    fun verifyThesisStatus(): String
 }
 
 interface StudentFormatter {
@@ -54,15 +54,15 @@ data class StudentData(
     val name: String,
     val major: String,
     var grade: Int,
-    val max_grade: Int
+    val maxGrade: Int
 )
 
 class YearCalculator(
     private val data: StudentData,
     private val strategy: YearCalculationStrategy
 ) {
-    fun calculate_remaining_years(): Int {
-        return strategy.calculate_remaining_years(data.grade, data.max_grade)
+    fun calculateRemainingYears(): Int {
+        return strategy.calculateRemainingYears(data.grade, data.maxGrade)
     }
 }
 
@@ -78,8 +78,8 @@ class UndergraduateFormatter : StudentFormatter {
             name: ${student.data.name}
             major: ${student.data.major}
             grade: ${student.data.grade}
-            max_grade: ${student.data.max_grade}
-            has_internship: ${student.has_internship}
+            max_grade: ${student.data.maxGrade}
+            has_internship: ${student.hasInternship}
         """.trimIndent()
     }
 }
@@ -91,8 +91,8 @@ class GraduateFormatter : StudentFormatter {
             name: ${student.data.name}
             major: ${student.data.major}
             grade: ${student.data.grade}
-            max_grade: ${student.data.max_grade}
-            thesis_title: ${student.thesis_title}
+            max_grade: ${student.data.maxGrade}
+            thesis_title: ${student.thesisTitle}
         """.trimIndent()
     }
 }
@@ -104,8 +104,8 @@ class ExchangeFormatter : StudentFormatter {
             name: ${student.data.name}
             major: ${student.data.major}
             grade: ${student.data.grade}
-            max_grade: ${student.data.max_grade}
-            exchange_duration: ${student.exchange_duration}
+            max_grade: ${student.data.maxGrade}
+            exchange_duration: ${student.exchangeDuration}
         """.trimIndent()
     }
 }
@@ -116,17 +116,17 @@ class DefaultFormatter : StudentFormatter {
             name: ${student.data.name}
             major: ${student.data.major}
             grade: ${student.data.grade}
-            max_grade: ${student.data.max_grade}
+            max_grade: ${student.data.maxGrade}
         """.trimIndent()
     }
 }
 
 class StudentPrinter(
     private val formatters: Map<KClass<out Student>, StudentFormatter>,
-    private val default_formatter: StudentFormatter = DefaultFormatter()
+    private val defaultFormatter: StudentFormatter = DefaultFormatter()
 ) {
     fun print(student: Student) {
-        val formatter = formatters[student::class] ?: default_formatter
+        val formatter = formatters[student::class] ?: defaultFormatter
         println(formatter.format(student))
     }
 }
@@ -134,61 +134,61 @@ class StudentPrinter(
 class UndergraduateStudent(
     data: StudentData,
     calculator: YearCalculator,
-    val has_internship: Boolean
+    val hasInternship: Boolean
 ) : Student(data, calculator), InternshipCertifiable {
-    override fun certify_internship(): String {
-        return if (has_internship) "Internship Certified" else "No Internship"
+    override fun certifyInternship(): String {
+        return if (hasInternship) "Internship Certified" else "No Internship"
     }
 }
 
 class GraduateStudent(
     data: StudentData,
     calculator: YearCalculator,
-    val thesis_title: String
+    val thesisTitle: String
 ) : Student(data, calculator), ThesisVerifiable {
-    override fun verify_thesis_status(): String {
-        return if (thesis_title.isNotEmpty()) "Thesis Submitted" else "Thesis Pending"
+    override fun verifyThesisStatus(): String {
+        return if (thesisTitle.isNotEmpty()) "Thesis Submitted" else "Thesis Pending"
     }
 }
 
 class ExchangeStudent(
     data: StudentData,
     calculator: YearCalculator,
-    val exchange_duration: Int
+    val exchangeDuration: Int
 ) : Student(data, calculator)
 
 interface StudentFactory {
-    fun create_undergraduate_student(name: String, major: String, grade: Int, has_internship: Boolean): UndergraduateStudent
-    fun create_graduate_student(name: String, major: String, grade: Int, thesis_title: String): GraduateStudent
-    fun create_exchange_student(name: String, major: String, grade: Int, exchange_duration: Int): ExchangeStudent
+    fun createUndergraduateStudent(name: String, major: String, grade: Int, hasInternship: Boolean): UndergraduateStudent
+    fun createGraduateStudent(name: String, major: String, grade: Int, thesisTitle: String): GraduateStudent
+    fun createExchangeStudent(name: String, major: String, grade: Int, exchangeDuration: Int): ExchangeStudent
 }
 
 class DefaultStudentFactory : StudentFactory {
-    override fun create_undergraduate_student(name: String, major: String, grade: Int, has_internship: Boolean): UndergraduateStudent {
+    override fun createUndergraduateStudent(name: String, major: String, grade: Int, hasInternship: Boolean): UndergraduateStudent {
         val data = StudentData(name, major, grade, 4)
-        val calculator = YearCalculator(data, UndergraduateYearCalculation(has_internship))
-        return UndergraduateStudent(data, calculator, has_internship)
+        val calculator = YearCalculator(data, UndergraduateYearCalculation(hasInternship))
+        return UndergraduateStudent(data, calculator, hasInternship)
     }
 
-    override fun create_graduate_student(name: String, major: String, grade: Int, thesis_title: String): GraduateStudent {
+    override fun createGraduateStudent(name: String, major: String, grade: Int, thesisTitle: String): GraduateStudent {
         val data = StudentData(name, major, grade, 2)
-        val calculator = YearCalculator(data, GraduateYearCalculation(thesis_title))
-        return GraduateStudent(data, calculator, thesis_title)
+        val calculator = YearCalculator(data, GraduateYearCalculation(thesisTitle))
+        return GraduateStudent(data, calculator, thesisTitle)
     }
 
-    override fun create_exchange_student(name: String, major: String, grade: Int, exchange_duration: Int): ExchangeStudent {
+    override fun createExchangeStudent(name: String, major: String, grade: Int, exchangeDuration: Int): ExchangeStudent {
         val data = StudentData(name, major, grade, 3)
-        val calculator = YearCalculator(data, ExchangeYearCalculation(exchange_duration))
-        return ExchangeStudent(data, calculator, exchange_duration)
+        val calculator = YearCalculator(data, ExchangeYearCalculation(exchangeDuration))
+        return ExchangeStudent(data, calculator, exchangeDuration)
     }
 }
 
 fun main() {
     val factory: StudentFactory = DefaultStudentFactory()
     val students: List<Student> = listOf(
-        factory.create_undergraduate_student("Foo", "Computer Science", 2, true),
-        factory.create_exchange_student("Bar", "Physics", 1, 1),
-        factory.create_graduate_student("Boo", "Electrical Engineering", 1, "AI Energy Optimization")
+        factory.createUndergraduateStudent("Foo", "Computer Science", 2, true),
+        factory.createExchangeStudent("Bar", "Physics", 1, 1),
+        factory.createGraduateStudent("Boo", "Electrical Engineering", 1, "AI Energy Optimization")
     )
 
     val printer = StudentPrinter(
@@ -200,20 +200,18 @@ fun main() {
     )
 
     for (student in students) {
-        println("remaining_years: ${student.calculator.calculate_remaining_years()}")
+        println("remaining_years: ${student.calculator.calculateRemainingYears()}")
         printer.print(student)
         println()
     }
 
     val undergrads: List<InternshipCertifiable> = students.filterIsInstance<UndergraduateStudent>()
     for (student in undergrads) {
-        println(student.certify_internship())
+        println(student.certifyInternship())
     }
 
     val grads: List<ThesisVerifiable> = students.filterIsInstance<GraduateStudent>()
     for (student in grads) {
-        println(student.verify_thesis_status())
+        println(student.verifyThesisStatus())
     }
 }
-
-

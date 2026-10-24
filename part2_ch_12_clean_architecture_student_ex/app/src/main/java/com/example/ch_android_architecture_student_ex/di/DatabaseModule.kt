@@ -6,16 +6,15 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.ch_android_architecture_student_ex.data.local.StudentDao
 import com.example.ch_android_architecture_student_ex.data.local.StudentDatabase
-import com.example.ch_android_architecture_student_ex.data.model.Student
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

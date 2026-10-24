@@ -19,7 +19,6 @@ fun testFlowEx2() = runBlocking {
     myFlow.collect { println(it) }
 }
 
-
 fun main() {
 //    testFlowEx1()
     testFlowEx2()

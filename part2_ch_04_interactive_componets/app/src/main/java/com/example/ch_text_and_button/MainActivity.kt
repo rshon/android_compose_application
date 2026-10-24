@@ -1,8 +1,6 @@
 package com.example.ch_text_and_button
 
-import android.graphics.drawable.shapes.Shape
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,7 +8,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -37,13 +34,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.DrawModifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
-import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -66,8 +59,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-
 private object RedBackgroundModifier : DrawModifier {
     override fun ContentDrawScope.draw() {
         drawRect(color = Color.Red)
@@ -77,7 +68,6 @@ private object RedBackgroundModifier : DrawModifier {
 
 fun Modifier.drawRedBackground(): Modifier =
     this.then(RedBackgroundModifier)
-
 
 interface MyModifier {
     companion object : MyModifier {
@@ -100,7 +90,7 @@ fun MyScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            var myMod: MyModifier = MyModifier
+            val myMod: MyModifier = MyModifier
 
             if (myMod == MyModifier) {
                 Text(text = "same!")
@@ -126,7 +116,6 @@ fun MyScreen() {
                     modifier = commonModifier
                 )
             }
-
 
             Text(
                 text = "click count = $clickCount",
@@ -168,7 +157,6 @@ fun MyScreen() {
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
-
             }
 
             Button(
@@ -183,7 +171,6 @@ fun MyScreen() {
                     text = "Click Me",
                     color = MaterialTheme.colorScheme.onBackground
                 )
-
 
 //                Text(text = "Click Me",
 //                    color = Color.White,
@@ -213,8 +200,6 @@ fun MyScreen() {
 //                    )
 //                )
 
-
-
 //                Text(
 //                    text = "Styled Text",
 //                    style = TextStyle(
@@ -229,4 +214,3 @@ fun MyScreen() {
         }
     }
 }
-

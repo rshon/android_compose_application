@@ -1,10 +1,8 @@
 package com.example.mediaapplication.data.repository
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap

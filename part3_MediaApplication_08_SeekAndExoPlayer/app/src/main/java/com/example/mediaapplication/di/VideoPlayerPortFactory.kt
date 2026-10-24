@@ -16,7 +16,7 @@ class VideoPlayerPortFactory @Inject constructor(
     fun getPort(type: PlayerEngineType): VideoPlayerPort {
         return when (type) {
             PlayerEngineType.MEDIA_PLAYER -> mediaPlayerPort
-            PlayerEngineType.EXO_PLAYER   -> exoPlayerPort
+            PlayerEngineType.EXO_PLAYER -> exoPlayerPort
         }
     }
 }

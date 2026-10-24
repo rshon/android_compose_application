@@ -1,6 +1,5 @@
 package com.example.mediaapplication.di
 
-
 import com.example.mediaapplication.data.player.AndroidMediaPlayerPort
 import com.example.mediaapplication.data.player.AndroidVideoPlayerPort
 import com.example.mediaapplication.domain.port.MediaPlayerPort

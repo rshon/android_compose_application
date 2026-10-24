@@ -7,9 +7,9 @@ import android.os.Environment
 import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import com.example.mediaapplication.domain.MediaRepository
 import com.example.mediaapplication.domain.model.MediaItem
 import com.example.mediaapplication.domain.model.MediaType
-import com.example.mediaapplication.domain.MediaRepository
 import java.io.File
 
 class MediaRepositoryImpl : MediaRepository {

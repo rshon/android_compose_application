@@ -1,8 +1,8 @@
 package com.example.mediaapplication.di
 
-import com.example.mediaapplication.data.player.MusicPlayerAdapter
 import com.example.mediaapplication.data.player.ExoPlayerVideoAdapter
 import com.example.mediaapplication.data.player.MediaPlayerVideoAdapter
+import com.example.mediaapplication.data.player.MusicPlayerAdapter
 import com.example.mediaapplication.domain.port.MusicPlayerPort
 import com.example.mediaapplication.domain.port.VideoPlayerPort
 import dagger.Binds
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 abstract class PlayerModule {
     @Binds
     @Singleton
-    abstract fun bindMediaPlayerPort(
+    abstract fun bindMusicPlayerPort(
         impl: MusicPlayerAdapter
     ): MusicPlayerPort
 
@@ -41,7 +41,7 @@ abstract class PlayerModule {
     companion object {
         @Provides
         @Singleton
-        fun provideVideoPlayerPort(
+        fun provideVideoPlayerPortFactory(
             @MediaPlayerPortImpl mediaImpl: VideoPlayerPort,
             @ExoPlayerPortImpl exoImpl: VideoPlayerPort
         ): VideoPlayerPortFactory {

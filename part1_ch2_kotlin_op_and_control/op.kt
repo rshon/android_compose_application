@@ -1,5 +1,3 @@
-
-
 fun testArithmeticOperators() {
     val a = 10
     val b = 20
@@ -31,27 +29,27 @@ fun testComparisonOperators() {
     val x = 2
     val y = 3
 
-    println("x == y: ${x == y}")      
-    println("x != y: ${x != y}")  
-    println("x > y: ${x > y}")    
-    println("x < y: ${x < y}")    
-    println("x >= y: ${x >= y}")  
-    println("x <= y: ${x <= y}")  
+    println("x == y: ${x == y}")
+    println("x != y: ${x != y}")
+    println("x > y: ${x > y}")
+    println("x < y: ${x < y}")
+    println("x >= y: ${x >= y}")
+    println("x <= y: ${x <= y}")
 }
 
 fun testAssignmentOperators() {
     var num = 10
     num += 1
-    println("num = ${num}")
+    println("num = $num")
     num -= 1
-    println("num = ${num}")
+    println("num = $num")
     num *= 2
-    println("num = ${num}")
+    println("num = $num")
     num /= 2
-    println("num = ${num}")
+    println("num = $num")
     num %= 3
-    println("num = ${num}")
-}   
+    println("num = $num")
+}
 
 fun testBitOperators() {
     println("3 and 1 = ${3 and 1}")
@@ -77,31 +75,31 @@ fun testLogicalOperators() {
 fun testRange() {
     println("1..5")
     for (i in 1..5) {
-        print("${i} ")
+        print("$i ")
     }
 
     println("")
     println("5 downTo 1")
     for (i in 5 downTo 1) {
-        print("${i} ")
+        print("$i ")
     }
 
     println("")
     println("1..5 step 2")
     for (i in 1..5 step 2) {
-        print("${i} ")
+        print("$i ")
     }
 
     println("")
     println("5 downTo 1 step 2")
     for (i in 5 downTo 1 step 2) {
-        print("${i} ")
+        print("$i ")
     }
 
     println("")
     println("1 until 5")
     for (i in 1 until 5) {
-        print("${i} ")
+        print("$i ")
     }
 }
 
@@ -118,7 +116,7 @@ fun testLet() {
         "Text is: $it"
     } ?: "No text"
     println(result)
-    
+
     val validText: String? = "Hello"
     val validResult = validText?.let {
         "Text is: $it"
@@ -169,7 +167,7 @@ fun testTypeCastingOperator() {
 
     val myAnimal: Animal = Dog()  // Dog 객체를 Animal 타입으로 저장
 
-    // 확실히 Dog로 변환 가능하므로 OK
+    // 확실히 Dog으로 변환 가능하므로 OK
     val myDog: Dog = myAnimal as Dog
     println("성공: $myDog")
 
@@ -184,7 +182,6 @@ fun testTypeCastingOperator2() {
 
     class Dog : Animal()
 
-    
     val myAnimal: Animal = Cat()  // Cat 객체를 Animal 타입으로 저장
 
     // Dog으로 변환 시도. Cat이므로 null이 반환된다.
@@ -210,7 +207,7 @@ fun testNumericConversion() {
     println("Double (12.78) to Int: $intFromDouble")  // 출력: 12
 
     val charValue: Char = 'B'
-    val intFromChar: Int = charValue.toInt()  // Char의 ASCII/Unicode 값으로 변환
+    val intFromChar: Int = charValue.code  // Char의 ASCII/Unicode 값으로 변환
     println("Char ('B') to Int: $intFromChar")  // 출력: 66
 
     val stringNumber: String = "456"
@@ -224,10 +221,9 @@ fun testNumericConversion() {
     println("String (\"hello\") to Int (안전하게): $safeNumFromString")  // 출력: null
 }
 
-
 fun main() {
-    // testOperators()
-    // testIncrementDecrement()
+    // testArithmeticOperators()
+    // testIncrementAndDecrement()
     // testComparisonOperators()
     // testAssignmentOperators()
     // testLogicalOperators()

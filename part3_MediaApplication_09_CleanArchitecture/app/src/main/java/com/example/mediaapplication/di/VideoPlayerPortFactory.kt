@@ -1,10 +1,10 @@
 package com.example.mediaapplication.di
 
+import com.example.mediaapplication.BuildConfig
 import com.example.mediaapplication.data.player.PlayerEngineType
 import com.example.mediaapplication.domain.port.VideoPlayerPort
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.example.mediaapplication.BuildConfig
 
 @Singleton
 class VideoPlayerPortFactory @Inject constructor(
@@ -14,7 +14,7 @@ class VideoPlayerPortFactory @Inject constructor(
     fun getPort(type: PlayerEngineType): VideoPlayerPort {
         return when (type) {
             PlayerEngineType.MEDIA_PLAYER -> mediaPlayerPort
-            PlayerEngineType.EXO_PLAYER   -> exoPlayerPort
+            PlayerEngineType.EXO_PLAYER -> exoPlayerPort
         }
     }
 
@@ -27,7 +27,7 @@ class VideoPlayerPortFactory @Inject constructor(
 
         return when (engineType) {
             PlayerEngineType.MEDIA_PLAYER -> mediaPlayerPort
-            PlayerEngineType.EXO_PLAYER   -> exoPlayerPort
+            PlayerEngineType.EXO_PLAYER -> exoPlayerPort
         }
     }
 }

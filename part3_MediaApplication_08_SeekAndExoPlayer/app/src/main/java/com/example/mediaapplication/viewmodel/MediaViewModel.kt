@@ -1,7 +1,6 @@
 package com.example.mediaapplication.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,9 +9,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mediaapplication.domain.MediaRepository
 import com.example.mediaapplication.domain.model.MediaItem
 import com.example.mediaapplication.domain.model.MediaType
-import com.example.mediaapplication.domain.MediaRepository
 import com.example.mediaapplication.domain.usecase.NavigateMediaUseCase
 import com.example.mediaapplication.domain.usecase.PlayMusicUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -114,11 +113,11 @@ class MediaViewModel @Inject constructor(
 
     fun playNext(context: Context) {
         val newIndex = navigateUseCase(
-            items       = mediaItems.value,
-            currentIndex= currentIndex.value,
-            shuffle     = isShuffled.value,
-            filterType  = contentFilter,
-            direction   = NavigateMediaUseCase.Direction.NEXT
+            items = mediaItems.value,
+            currentIndex = currentIndex.value,
+            shuffle = isShuffled.value,
+            filterType = contentFilter,
+            direction = NavigateMediaUseCase.Direction.NEXT
         )
         currentIndex.value = newIndex
         mediaItems.value.getOrNull(newIndex)?.let { playMusic(it) }
@@ -126,11 +125,11 @@ class MediaViewModel @Inject constructor(
 
     fun playPrevious(context: Context) {
         val newIndex = navigateUseCase(
-            items       = mediaItems.value,
-            currentIndex= currentIndex.value,
-            shuffle     = isShuffled.value,
-            filterType  = contentFilter,
-            direction   = NavigateMediaUseCase.Direction.PREVIOUS
+            items = mediaItems.value,
+            currentIndex = currentIndex.value,
+            shuffle = isShuffled.value,
+            filterType = contentFilter,
+            direction = NavigateMediaUseCase.Direction.PREVIOUS
         )
         currentIndex.value = newIndex
         mediaItems.value.getOrNull(newIndex)?.let { playMusic(it) }

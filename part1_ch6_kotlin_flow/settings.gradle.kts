@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "chapter_flow"
 include(":app")
- 

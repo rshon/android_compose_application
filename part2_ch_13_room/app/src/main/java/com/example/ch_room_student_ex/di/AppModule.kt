@@ -38,5 +38,3 @@ object AppModule {
         return StudentRepositoryImpl(studentDao)
     }
 }
-
-

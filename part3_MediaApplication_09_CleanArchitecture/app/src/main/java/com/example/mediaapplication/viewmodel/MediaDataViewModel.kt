@@ -1,14 +1,13 @@
 package com.example.mediaapplication.viewmodel
 
-import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mediaapplication.domain.model.MediaItem
+import com.example.mediaapplication.domain.usecase.LoadMediaContentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.mediaapplication.domain.usecase.LoadMediaContentUseCase
 
 @HiltViewModel
 class MediaDataViewModel @Inject constructor(

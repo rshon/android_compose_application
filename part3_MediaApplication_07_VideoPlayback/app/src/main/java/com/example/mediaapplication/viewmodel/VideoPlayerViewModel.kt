@@ -30,7 +30,7 @@ data class PlayerState(
 @HiltViewModel
 class VideoPlayerViewModel @Inject constructor(
     private val videoPlayUseCase: VideoPlayUseCase,
-    private val videoPlayerPort : VideoPlayerPort
+    private val videoPlayerPort: VideoPlayerPort
 ) : ViewModel() {
 
     private var currentUri: String? = null
@@ -122,28 +122,32 @@ class VideoPlayerViewModel @Inject constructor(
         startPositionUpdates()
     }
 
-    fun pause()   {
+    fun pause() {
         videoPlayUseCase.pause()
         updatePlayerState() // 일시정지 시 최종 상태 업데이트
         stopPositionUpdates() // 일시정지 시 주기적 업데이트 중지
     }
-    fun resume()  {
+
+    fun resume() {
         videoPlayUseCase.resume()
         updatePlayerState() // 재개 시 현재 상태 업데이트
         startPositionUpdates() // 재개 시 주기적 업데이트 시작
     }
-    fun next()    {
+
+    fun next() {
         videoPlayUseCase.next()
         updatePlayerState()
         // next/previous는 seekTo와 유사하게 위치가 변경되므로, 주기적인 업데이트를 다시 시작할 필요는 없지만,
         // 혹시 모를 상황에 대비하여 호출하는 것이 안전합니다.
         startPositionUpdates()
     }
-    fun previous(){
+
+    fun previous() {
         videoPlayUseCase.previous()
         updatePlayerState()
         startPositionUpdates()
     }
+
     fun seekTo(ms: Long) {
         videoPlayUseCase.seekTo(ms)
         updatePlayerState() // seek 후 상태 업데이트

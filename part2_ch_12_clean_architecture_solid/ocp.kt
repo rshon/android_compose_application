@@ -1,4 +1,3 @@
-
 interface YearCalculationStrategy {
     fun calculateRemainingYears(grade: Int, maxGrade: Int): Int
 }
@@ -39,7 +38,7 @@ open class Student(
         return calculationStrategy.calculateRemainingYears(grade, maxGrade)
     }
 
-    open fun print_info() {
+    open fun printInfo() {
         println("Name: $name")
         println("Major: $major")
         println("Grade: $grade")
@@ -59,7 +58,7 @@ class UndergraduateStudent(
     maxGrade = 4,
     calculationStrategy = UndergraduateYearCalculation(hasInternship)
 ) {
-    override fun print_info() {
+    override fun printInfo() {
         println("Name: $name (Undergraduate)")
         println("Major: $major")
         println("Grade: $grade")
@@ -80,7 +79,7 @@ class GraduateStudent(
     maxGrade = 2,
     calculationStrategy = GraduateYearCalculation(thesisTitle)
 ) {
-    override fun print_info() {
+    override fun printInfo() {
         println("Name: $name (Graduate)")
         println("Major: $major")
         println("Grade: $grade")
@@ -90,11 +89,11 @@ class GraduateStudent(
 }
 
 class ExchangeYearCalculation(
-    protected val exchange_duration: Int
+    private val exchangeDuration: Int
 ) : YearCalculationStrategy {
     override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
         val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
-        return baseYears + exchange_duration
+        return baseYears + exchangeDuration
     }
 }
 
@@ -102,13 +101,13 @@ class ExchangeStudent(
     name: String,
     major: String,
     grade: Int,
-    val exchange_duration: Int
+    val exchangeDuration: Int
 ) : Student(
     name,
     major,
     grade,
     maxGrade = 3,
-    calculationStrategy = ExchangeYearCalculation(exchange_duration)
+    calculationStrategy = ExchangeYearCalculation(exchangeDuration)
 )
 
 fun main() {
@@ -119,7 +118,7 @@ fun main() {
     )
     for (student in students) {
         println("Remaining Years: ${student.calculateRemainingYears()}")
-        student.print_info()
+        student.printInfo()
         println()
     }
 }

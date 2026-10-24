@@ -1,19 +1,22 @@
 package com.example.ch_layout
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,14 +30,13 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -48,41 +50,29 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.core.content.ContextCompat
+import coil.compose.AsyncImage
 import com.example.ch_layout.ui.theme.Ch_layoutTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
-import coil.compose.AsyncImage
-import android.Manifest
-import android.Manifest.permission
-import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Divider
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateListOf
-import androidx.constraintlayout.compose.Dimension
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -202,7 +192,7 @@ fun ListKeyStateExample() {
 fun ListItemContent(item: ItemData, listId: String) {
     var clickCount by remember { mutableIntStateOf(0) }
 
-    // to see which item is in involved in recomposition (called when item.id(key) is updated)
+    // to see which item is involved in recomposition (called when item.id(key) is updated)
     LaunchedEffect(item.id) {
         Log.d("ListKeyStateExample", "[$listId] Composing item: ${item.name} (id=${item.id}), initial count: $clickCount")
     }
@@ -291,7 +281,7 @@ fun Mp3ThumbnailScreen() {
             Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("Required audio p ermisson!")
+            Text("Required audio permission!")
         }
     }
 }
@@ -391,7 +381,6 @@ fun DownloadMp3ThumbnailRow() {
     )
 }
 
-
 @Composable
 fun LazyRowExample() {
     Scaffold(
@@ -488,7 +477,6 @@ fun CardsWithLazyRow(modifier: Modifier = Modifier) {
         }
     }
 }
-
 
 @Composable
 fun LazyListWithStateExample() {
@@ -835,12 +823,11 @@ fun BoxExample() {
     )
 }
 
-
 @Composable
 fun RowExample() {
-    var fondSize by remember { mutableStateOf(15.sp) }
-    var enlargeButtonText: String = "Enlarge font size"
-    var reduceButtonText: String = "Reduce font size"
+    var fontSize by remember { mutableStateOf(15.sp) }
+    val enlargeButtonText = "Enlarge font size"
+    val reduceButtonText = "Reduce font size"
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -860,13 +847,13 @@ fun RowExample() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "1st text", fontSize = fondSize)
+                    Text(text = "1st text", fontSize = fontSize)
                     VerticalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                    Text(text = "2nd text", fontSize = fondSize)
+                    Text(text = "2nd text", fontSize = fontSize)
                     VerticalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                    Text(text = "3rd text", fontSize = fondSize)
+                    Text(text = "3rd text", fontSize = fontSize)
                     VerticalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 }
 
@@ -878,10 +865,10 @@ fun RowExample() {
                         .padding(bottom = 16.dp)
                 ) {
                     Button(
-                        onClick = { fondSize = if (fondSize == 15.sp) 25.sp else 15.sp },
+                        onClick = { fontSize = if (fontSize == 15.sp) 25.sp else 15.sp },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        if (fondSize == 15.sp) {
+                        if (fontSize == 15.sp) {
                             Text(enlargeButtonText)
                         } else {
                             Text(reduceButtonText)
@@ -895,10 +882,9 @@ fun RowExample() {
     )
 }
 
-
 @Composable
 fun ColumnExample() {
-    var fondSize by remember { mutableStateOf(20.sp) }
+    var fontSize by remember { mutableStateOf(20.sp) }
     var enlargeButtonText by remember { mutableStateOf("Enlarge font size") }
     var reduceButtonText by remember { mutableStateOf("Reduce font size") }
 
@@ -913,17 +899,17 @@ fun ColumnExample() {
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "1st text", fontSize = fondSize)
+                Text(text = "1st text", fontSize = fontSize)
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                Text(text = "2nd text", fontSize = fondSize)
+                Text(text = "2nd text", fontSize = fontSize)
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                Text(text = "3rd text", fontSize = fondSize)
+                Text(text = "3rd text", fontSize = fontSize)
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                Button(onClick = { fondSize = if (fondSize == 20.sp) 40.sp else 20.sp }) {
-                    if (fondSize == 20.sp) {
+                Button(onClick = { fontSize = if (fontSize == 20.sp) 40.sp else 20.sp }) {
+                    if (fontSize == 20.sp) {
                         Text(enlargeButtonText)
                     } else {
                         Text(reduceButtonText)

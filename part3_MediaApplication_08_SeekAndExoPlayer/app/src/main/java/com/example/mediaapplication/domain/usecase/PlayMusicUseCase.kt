@@ -19,5 +19,5 @@ class PlayMusicUseCase @Inject constructor(
 
     val isPlaying: Flow<Boolean> get() = player.isPlaying
     val progress: Flow<Int> get() = player.progress
-    val duration:  Flow<Int> get() = player.duration
+    val duration: Flow<Int> get() = player.duration
 }

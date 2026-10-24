@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -22,7 +21,6 @@ import com.example.mediaapplication.viewmodel.VideoPlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLDecoder
 import java.net.URLEncoder
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -129,8 +127,8 @@ fun MainNaviGraph(navController: NavHostController) {
 
             VideoPlayerScreen(
                 videoPlayerViewModel = videoViewModel,
-                navController  = navController,
-                uri            = filePath,
+                navController = navController,
+                uri = filePath,
             )
         }
     }

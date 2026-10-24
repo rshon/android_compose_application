@@ -16,10 +16,7 @@ import com.example.mediaapplication.domain.port.VideoPlayerPort
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -42,8 +39,6 @@ class MediaPlayerVideoPort @Inject constructor(
     private var playerState: Int = Player.STATE_IDLE
 
     private val videoSizeListeners = mutableSetOf<(width: Int, height: Int) -> Unit>()
-
-
 
     // MediaPlayer의 상태를 ExoPlayer의 Player 상태와 매핑
     private fun mapMediaPlayerStateToPlayerState(mpState: Int, buffering: Boolean = false): Int {
@@ -78,7 +73,6 @@ class MediaPlayerVideoPort @Inject constructor(
             Log.d(TAG, "MediaPlayer internal state changed to: $value, Player state: $playerState")
             listeners.forEach { it.onPlaybackStateChanged(playerState) }
         }
-
 
     @OptIn(UnstableApi::class)
     private fun initializeMediaPlayer() {
@@ -146,14 +140,14 @@ class MediaPlayerVideoPort @Inject constructor(
                     what
                 )
                 listeners.forEach { it.onPlayerError(playbackException) }
-                true  // true를 반환해야 onCompletionListener가 호출되지 않음
+                true // true를 반환해야 onCompletionListener가 호출되지 않음
             }
 
-            setOnBufferingUpdateListener { mp, percent ->
+            setOnBufferingUpdateListener { _, _ ->
                 // Buffering progress
             }
 
-            setOnInfoListener { mp, what, extra ->
+            setOnInfoListener { _, what, _ ->
                 when (what) {
                     MediaPlayer.MEDIA_INFO_BUFFERING_START -> {
                         Log.d(TAG, "MediaPlayer buffering start...")
@@ -172,7 +166,7 @@ class MediaPlayerVideoPort @Inject constructor(
                 true
             }
 
-            setOnVideoSizeChangedListener { mp, width, height ->
+            setOnVideoSizeChangedListener { _, width, height ->
                 Log.d(TAG, "Video size changed: ${width}x${height}")
                 contentVideoWidth = width
                 contentVideoHeight = height
@@ -187,8 +181,8 @@ class MediaPlayerVideoPort @Inject constructor(
 
                 videoSizeListeners.forEach {
                     Log.d(TAG, "calling videoSizeListeners with ${width}x${height}")
-
-                    it(contentVideoWidth, contentVideoHeight) }
+                    it(contentVideoWidth, contentVideoHeight)
+                }
             }
         }
 
@@ -380,7 +374,7 @@ class MediaPlayerVideoPort @Inject constructor(
         throw UnsupportedOperationException("MediaPlayerVideoPort does not provide an ExoPlayer instance.")
     }
 
-    override fun setSurface(surface: android.view.Surface?) {
+    override fun setSurface(surface: Surface?) {
         currentSurface = surface
         Log.d(TAG, "Surface ${if (surface != null) "set" else "cleared"}")
 

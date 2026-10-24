@@ -21,7 +21,7 @@ fun getStudentState(): Flow<StudentState> = flow {
     emit(StudentState(student = null, isLoading = false, errorMessage = "Student data is not available anymore!"))
 }
 
-fun test_state_flow() = runBlocking {
+fun testStateFlow() = runBlocking {
     getStudentState()
         .distinctUntilChanged()
         .collect { state ->
@@ -48,7 +48,7 @@ fun getStudentEvents(): Flow<StudentEvent> = flow {
     emit(StudentEvent.DeleteStudent)
 }
 
-fun test_event_flow() = runBlocking {
+fun testEventFlow() = runBlocking {
     getStudentEvents()
         .collect { event ->
             when (event) {
@@ -61,6 +61,6 @@ fun test_event_flow() = runBlocking {
 }
 
 fun main() {
-//    test_state_flow()
-    test_event_flow()
+//    testStateFlow()
+    testEventFlow()
 }

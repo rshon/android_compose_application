@@ -7,12 +7,12 @@ open class Student(
     val major: String = major
     var grade: Int = grade
 
-    open fun calculate_remaining_years(max_grade: Int = 4): Int {
-        val remaining = max_grade - grade
+    open fun calculateRemainingYears(maxGrade: Int = 4): Int {
+        val remaining = maxGrade - grade
         return if (remaining < 0) 0 else remaining
     }
 
-    open fun print_info() {
+    open fun printInfo() {
         println("Name: $name")
         println("Major: $major")
         println("Grade: $grade")
@@ -23,20 +23,20 @@ class UndergraduateStudent(
     name: String,
     major: String,
     grade: Int,
-    val has_internship: Boolean
+    val hasInternship: Boolean
 ) : Student(name, major, grade) {
-    override fun calculate_remaining_years(max_grade: Int): Int {
-        val base_years = super.calculate_remaining_years(max_grade)
-        return if (has_internship) base_years - 1 else base_years
+    override fun calculateRemainingYears(maxGrade: Int): Int {
+        val baseYears = super.calculateRemainingYears(maxGrade)
+        return if (hasInternship) baseYears - 1 else baseYears
     }
 
-    fun calculate_undergrad_years() = calculate_remaining_years(4)
+    fun calculateUndergradYears() = calculateRemainingYears(4)
 
-    override fun print_info() {
+    override fun printInfo() {
         println("Name: $name (Undergraduate)")
         println("Major: $major")
         println("Grade: $grade")
-        println("Has Internship: $has_internship")
+        println("Has Internship: $hasInternship")
     }
 }
 
@@ -44,20 +44,20 @@ class GraduateStudent(
     name: String,
     major: String,
     grade: Int,
-    val thesis_title: String
+    val thesisTitle: String
 ) : Student(name, major, grade) {
-    override fun calculate_remaining_years(max_grade: Int): Int {
-        val base_years = super.calculate_remaining_years(max_grade)
-        return if (thesis_title.isNotEmpty()) base_years else base_years + 1
+    override fun calculateRemainingYears(maxGrade: Int): Int {
+        val baseYears = super.calculateRemainingYears(maxGrade)
+        return if (thesisTitle.isNotEmpty()) baseYears else baseYears + 1
     }
 
-    fun calculate_grad_years() = calculate_remaining_years(2)
+    fun calculateGradYears() = calculateRemainingYears(2)
 
-    override fun print_info() {
+    override fun printInfo() {
         println("Name: $name (Graduate)")
         println("Major: $major")
         println("Grade: $grade")
-        println("Thesis Title: $thesis_title")
+        println("Thesis Title: $thesisTitle")
     }
 }
 
@@ -65,12 +65,12 @@ fun main() {
     val undergrad = UndergraduateStudent("Foo", "Computer Science", 2, true)
     val grad = GraduateStudent("Boo", "Electrical Engineering", 1, "AI Energy Optimization")
 
-    println("Undergraduate Remaining Years (default): ${undergrad.calculate_remaining_years()}")
-    println("Undergraduate Remaining Years (specific): ${undergrad.calculate_undergrad_years()}")
-    undergrad.print_info()
+    println("Undergraduate Remaining Years (default): ${undergrad.calculateRemainingYears()}")
+    println("Undergraduate Remaining Years (specific): ${undergrad.calculateUndergradYears()}")
+    undergrad.printInfo()
     println()
 
-    println("Graduate Remaining Years (default): ${grad.calculate_remaining_years()}")
-    println("Graduate Remaining Years (specific): ${grad.calculate_grad_years()}")
-    grad.print_info()
+    println("Graduate Remaining Years (default): ${grad.calculateRemainingYears()}")
+    println("Graduate Remaining Years (specific): ${grad.calculateGradYears()}")
+    grad.printInfo()
 }

@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-
 @OptIn(ExperimentalCoroutinesApi::class)
 class NumberProducerTest {
     @Test
@@ -23,6 +22,4 @@ class NumberProducerTest {
         // Then (검증)
         assertEquals(listOf(1, 2, 3), result)
     }
-
-
 }

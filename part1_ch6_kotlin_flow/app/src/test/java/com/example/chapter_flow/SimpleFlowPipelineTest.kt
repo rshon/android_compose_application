@@ -13,9 +13,6 @@ fun main() = runBlocking {
         }
     }
 
-
-
-
     // Intermediary
     val transformedFlow = numberFlow
         .filter { it % 2 == 0 }

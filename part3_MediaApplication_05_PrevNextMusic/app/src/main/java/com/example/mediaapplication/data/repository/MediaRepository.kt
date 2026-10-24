@@ -1,10 +1,8 @@
 package com.example.mediaapplication.data.repository
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap
@@ -19,7 +17,7 @@ class MediaRepository {
     }
 
     private val mediaTypeHandlers = mapOf<MediaType, (Context, File) -> MediaItem>(
-        MediaType.IMAGE to { ctx, file ->
+        MediaType.IMAGE to { _, file ->
             MediaItem(
                 type = MediaType.IMAGE,
                 title = file.name,
@@ -92,7 +90,7 @@ class MediaRepository {
 
             // 이미지 사이즈 계산
             val targetSize = 200
-            val scaleFactor = Math.max(
+            val scaleFactor = maxOf(
                 options.outWidth / targetSize,
                 options.outHeight / targetSize
             ).coerceAtLeast(1)
@@ -110,8 +108,8 @@ class MediaRepository {
 
     private fun extractMusicMetadata(context: Context, file: File): Map<String, String> {
         val metadata = mutableMapOf<String, String>()
+        val retriever = MediaMetadataRetriever()
         try {
-            val retriever = MediaMetadataRetriever()
             retriever.setDataSource(file.absolutePath)
 
             // 메타데이터 추출
@@ -121,30 +119,29 @@ class MediaRepository {
             val duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
 
             if (title != null) metadata["title"] = title
-            if (artist != null) metadata["artist"] = artist else metadata["artist"] = "Unknown Artist"
-            if (album != null) metadata["album"] = album else metadata["album"] = "Unknown Album"
+            metadata["artist"] = artist ?: "Unknown Artist"
+            metadata["album"] = album ?: "Unknown Album"
             if (duration != null) {
                 val durationInMs = duration.toLong()
                 val minutes = durationInMs / 60000
                 val seconds = (durationInMs % 60000) / 1000
                 metadata["duration"] = String.format("%d:%02d", minutes, seconds)
             }
-
-            retriever.release()
         } catch (e: Exception) {
             metadata["artist"] = "Unknown Artist"
             metadata["album"] = "Unknown Album"
+        } finally {
+            retriever.release()
         }
         return metadata
     }
 
     private fun extractAlbumArt(context: Context, file: File): ImageBitmap? {
+        val retriever = MediaMetadataRetriever()
         return try {
-            val retriever = MediaMetadataRetriever()
             retriever.setDataSource(file.absolutePath)
 
             val albumArtBytes = retriever.embeddedPicture
-            retriever.release()
 
             if (albumArtBytes != null) {
                 val bitmap = BitmapFactory.decodeByteArray(albumArtBytes, 0, albumArtBytes.size)
@@ -154,21 +151,24 @@ class MediaRepository {
             }
         } catch (e: Exception) {
             null
+        } finally {
+            retriever.release()
         }
     }
 
     private fun extractVideoThumbnail(context: Context, file: File): ImageBitmap? {
+        val retriever = MediaMetadataRetriever()
         return try {
-            val retriever = MediaMetadataRetriever()
             retriever.setDataSource(file.absolutePath)
 
             // 비디오의 첫 프레임을 썸네일로 추출
             val bitmap = retriever.getFrameAtTime(0)
-            retriever.release()
 
             bitmap?.asImageBitmap()
         } catch (e: Exception) {
             null
+        } finally {
+            retriever.release()
         }
     }
 }

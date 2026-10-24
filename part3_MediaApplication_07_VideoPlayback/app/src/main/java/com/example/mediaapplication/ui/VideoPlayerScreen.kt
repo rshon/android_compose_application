@@ -1,5 +1,6 @@
 package com.example.mediaapplication.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.FullscreenExit
 import androidx.compose.material.icons.filled.NavigateBefore
 import androidx.compose.material.icons.filled.NavigateNext
 import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -19,19 +21,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.media3.ui.PlayerView
 import androidx.navigation.NavController
-import com.example.mediaapplication.data.player.AndroidVideoPlayerPort
-import com.example.mediaapplication.domain.port.VideoPlayerPort
-import com.example.mediaapplication.domain.usecase.VideoPlayUseCase
 import com.example.mediaapplication.viewmodel.MediaViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import android.util.Log
-import androidx.compose.material.icons.filled.PlayArrow
 import com.example.mediaapplication.viewmodel.VideoPlayerViewModel
+import kotlinx.coroutines.delay
 
 private const val TAG = "VideoPlayerScreen"
 
@@ -77,7 +71,7 @@ fun VideoPlayerScreen(
             factory = { ctx ->
                 PlayerView(ctx).apply {
                     player = exoPlayer
-                    useController = false  // custom control 사용으로 ExoPlayer control 사용 X
+                    useController = false // custom control 사용으로 ExoPlayer control 사용 X
                 }
             },
             modifier = Modifier
@@ -98,7 +92,8 @@ fun VideoPlayerScreen(
             ) {
                 IconButton(onClick = {
                     println("back")
-                    navController.popBackStack() }) {
+                    navController.popBackStack()
+                }) {
                     Icon(
                         imageVector = Icons.Default.NavigateBefore,
                         contentDescription = "Back",
@@ -107,7 +102,8 @@ fun VideoPlayerScreen(
                 }
                 IconButton(onClick = {
                     println("full screen")
-                    isFullScreen = !isFullScreen }) {
+                    isFullScreen = !isFullScreen
+                }) {
                     Icon(
                         imageVector = if (isFullScreen) Icons.Default.FullscreenExit else Icons.Default.Fullscreen,
                         contentDescription = "Toggle Fullscreen",
@@ -168,7 +164,8 @@ fun VideoPlayerScreen(
                 ) {
                     IconButton(onClick = {
                         println("previous")
-                        videoPlayerViewModel.previous() }) {
+                        videoPlayerViewModel.previous()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.NavigateBefore,
                             contentDescription = "Previous",
@@ -192,7 +189,8 @@ fun VideoPlayerScreen(
                     }
                     IconButton(onClick = {
                         println("Next")
-                        videoPlayerViewModel.next() }) {
+                        videoPlayerViewModel.next()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.NavigateNext,
                             contentDescription = "Next",

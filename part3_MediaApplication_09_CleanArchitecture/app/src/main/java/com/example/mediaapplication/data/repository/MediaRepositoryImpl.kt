@@ -1,10 +1,7 @@
 package com.example.mediaapplication.data.repository
 
-import android.content.Context
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
-import android.os.Environment
-import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import com.example.mediaapplication.constants.MediaConstants
@@ -17,7 +14,7 @@ import javax.inject.Inject
 
 class MediaRepositoryImpl @Inject constructor(
     private val mediaDataSource: MediaDataSource
-): MediaRepository {
+) : MediaRepository {
 
     companion object {
         private const val TAG = "MediaRepository"
@@ -87,7 +84,7 @@ class MediaRepositoryImpl @Inject constructor(
             BitmapFactory.decodeFile(file.absolutePath, options)
 
             val targetSize = MediaConstants.THUMBNAIL_TARGET_SIZE
-            val scaleFactor = Math.max(
+            val scaleFactor = maxOf(
                 options.outWidth / targetSize,
                 options.outHeight / targetSize
             ).coerceAtLeast(1)
@@ -105,8 +102,8 @@ class MediaRepositoryImpl @Inject constructor(
 
     private fun extractMusicMetadata(file: File): Map<String, String> {
         val metadata = mutableMapOf<String, String>()
+        val retriever = MediaMetadataRetriever()
         try {
-            val retriever = MediaMetadataRetriever()
             retriever.setDataSource(file.absolutePath)
 
             val title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
@@ -123,22 +120,21 @@ class MediaRepositoryImpl @Inject constructor(
                 val seconds = (durationInMs % 60000) / 1000
                 metadata["duration"] = String.format("%d:%02d", minutes, seconds)
             }
-
-            retriever.release()
         } catch (e: Exception) {
             metadata["artist"] = MediaConstants.DEFAULT_ARTIST
             metadata["album"] = MediaConstants.DEFAULT_ALBUM
+        } finally {
+            retriever.release()
         }
         return metadata
     }
 
     private fun extractAlbumArt(file: File): ImageBitmap? {
+        val retriever = MediaMetadataRetriever()
         return try {
-            val retriever = MediaMetadataRetriever()
             retriever.setDataSource(file.absolutePath)
 
             val albumArtBytes = retriever.embeddedPicture
-            retriever.release()
 
             if (albumArtBytes != null) {
                 val bitmap = BitmapFactory.decodeByteArray(albumArtBytes, 0, albumArtBytes.size)
@@ -148,21 +144,24 @@ class MediaRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             null
+        } finally {
+            retriever.release()
         }
     }
 
     private fun extractVideoThumbnail(file: File): ImageBitmap? {
+        val retriever = MediaMetadataRetriever()
         return try {
-            val retriever = MediaMetadataRetriever()
             retriever.setDataSource(file.absolutePath)
 
             // extracting the first frame as thumbnail
             val bitmap = retriever.getFrameAtTime(0)
-            retriever.release()
 
             bitmap?.asImageBitmap()
         } catch (e: Exception) {
             null
+        } finally {
+            retriever.release()
         }
     }
 }

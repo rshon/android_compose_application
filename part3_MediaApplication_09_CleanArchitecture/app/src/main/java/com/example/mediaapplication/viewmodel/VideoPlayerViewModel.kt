@@ -80,12 +80,12 @@ class VideoPlayerViewModel @Inject constructor(
     }
 
     override fun onPositionDiscontinuity(oldPosition: Long, newPosition: Long) {
-        Log.d(TAG, "Position discontinuity: ${oldPosition} -> ${newPosition}")
+        Log.d(TAG, "Position discontinuity: $oldPosition -> $newPosition")
         updatePlayerState()
     }
 
     override fun onPlayerError(message: String, cause: Throwable?) {
-        Log.e(TAG, "onPlayerError: ${message}")
+        Log.e(TAG, "onPlayerError: $message")
         stopPositionUpdates()
         updatePlayerState()
 

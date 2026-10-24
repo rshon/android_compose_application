@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.mediaapplication.data.model.MediaItem
+import com.example.mediaapplication.data.model.MediaType
 import com.example.mediaapplication.viewmodel.MediaViewModel
 import java.io.File
 
@@ -32,21 +34,21 @@ fun MusicPlayerScreen(
     val progress by viewModel.progress
     val duration by viewModel.duration
     val currentMediaItem by viewModel.currentMediaItem // 현재 재생 중인 MediaItem
-    val isShuffled by viewModel.isShuffled  // 셔플 상태 관찰
+    val isShuffled by viewModel.isShuffled // 셔플 상태 관찰
 
     LaunchedEffect(filePath) {
         println("Playing music with filePath: $filePath")
-        viewModel.playMusic(com.example.mediaapplication.data.model.MediaItem(
-            type = com.example.mediaapplication.data.model.MediaType.MUSIC,
-            title = File(filePath).name,
-            filePath = filePath
-        ))
+        viewModel.playMusic(
+            MediaItem(
+                type = MediaType.MUSIC,
+                title = File(filePath).name,
+                filePath = filePath
+            )
+        )
     }
 
     // 현재 재생 중인 곡의 file Path
-    val currentFilePath by derivedStateOf {
-        currentMediaItem?.filePath ?: filePath
-    }
+    val currentFilePath = currentMediaItem?.filePath ?: filePath
 
     // 현재 곡이 변경될 때마다 로그 출력
     LaunchedEffect(currentFilePath) {

@@ -25,9 +25,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             Ch_android_architecture_student_exTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(modifier = Modifier.fillMaxSize()
-                        .padding(innerPadding)
-                        .padding(20.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                            .padding(20.dp)
+                    ) {
                         StudentScreen()
                     }
                 }

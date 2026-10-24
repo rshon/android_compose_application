@@ -1,6 +1,6 @@
 abstract class Student(
-    protected val name: String, 
-    protected val major: String, 
+    protected val name: String,
+    protected val major: String,
     protected val grade: Int
 ) {
     abstract fun introduce()
@@ -11,8 +11,8 @@ abstract class Student(
 }
 
 class UndergraduateStudent(
-    name: String, 
-    major: String, 
+    name: String,
+    major: String,
     grade: Int
 ) : Student(name, major, grade) {
     override fun introduce() {
@@ -23,9 +23,9 @@ class UndergraduateStudent(
 }
 
 class GraduateStudent(
-    name: String, 
-    major: String, 
-    grade: Int,  
+    name: String,
+    major: String,
+    grade: Int,
     val thesisTopic: String
 ) : Student(name, major, grade) {
     override fun introduce() {

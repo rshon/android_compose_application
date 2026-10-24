@@ -3,19 +3,19 @@ package com.example.mediaapplication.ui.videoplayer
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
+import android.view.SurfaceHolder
 import android.view.SurfaceView
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.example.mediaapplication.viewmodel.VideoPlayerViewModel
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.media3.ui.PlayerView
-import com.example.mediaapplication.viewmodel.PlayerEngineType
-import android.view.SurfaceHolder
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.media3.ui.PlayerView
+import com.example.mediaapplication.viewmodel.PlayerEngineType
+import com.example.mediaapplication.viewmodel.VideoPlayerViewModel
 
 @Composable
 fun PlayerRenderer(
@@ -142,9 +142,10 @@ class AspectRatioSurfaceView @JvmOverloads constructor(
             setMeasuredDimension(specWidth, specHeight)
         }
 
-        Log.d("AspectRatioSurfaceView",
+        Log.d(
+            "AspectRatioSurfaceView",
             "onMeasure() spec=(${specWidth}×${specHeight}) " +
-                    "=> measured=(${measuredWidth}×${measuredHeight})"
+                "=> measured=(${measuredWidth}×${measuredHeight})"
         )
     }
 }

@@ -20,16 +20,16 @@ class VideoPlayUseCase @Inject constructor(
 
     fun play(uri: String, scope: CoroutineScope) = port?.play(uri, scope)
     fun play() = port?.play()
-    fun pause()   = port?.pause()
-    fun resume()  = port?.resume()
+    fun pause() = port?.pause()
+    fun resume() = port?.resume()
     fun seekTo(ms: Long) = port?.seekTo(ms)
-    fun next()    = port?.next()
-    fun previous()= port?.previous()
+    fun next() = port?.next()
+    fun previous() = port?.previous()
     fun release() = port?.release()
 
     fun getPlayer(): ExoPlayer = port?.getExoPlayer()!!
 
-    fun addListener(listener: Player.Listener)    = port?.addPlayerListener(listener)
+    fun addListener(listener: Player.Listener) = port?.addPlayerListener(listener)
     fun removeListener(listener: Player.Listener) = port?.removePlayerListener(listener)
 
     fun getCurrentPosition(): Long = port?.getCurrentPlayerPosition()!!

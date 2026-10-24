@@ -7,8 +7,8 @@ open class Student(
     val major: String = major
     var grade: Int = grade
 
-    open fun calculateRemainingYears(max_grade: Int = 4): Int {
-        val remaining = max_grade - grade
+    open fun calculateRemainingYears(maxGrade: Int = 4): Int {
+        val remaining = maxGrade - grade
         return if (remaining < 0) 0 else remaining
     }
 
@@ -39,16 +39,16 @@ class Department(val name: String) {
 
 fun main() {
     val student1 = Student("Foo", "Computer Science", 1)
-    val student2 = Student("Bar", "Mathmatics", 4)
+    val student2 = Student("Bar", "Mathematics", 4)
     val student3 = Student("Boo", "Computer Science", 2)
 
-    val cs_dept = Department("Computer Science")
-    val electronics_dept = Department("Electronics")
+    val csDept = Department("Computer Science")
+    val electronicsDept = Department("Electronics")
 
-    cs_dept.register(student1)
-    cs_dept.register(student3)
-    electronics_dept.register(student2)
+    csDept.register(student1)
+    csDept.register(student3)
+    electronicsDept.register(student2)
 
-    cs_dept.printStudents()
-    electronics_dept.printStudents()
+    csDept.printStudents()
+    electronicsDept.printStudents()
 }

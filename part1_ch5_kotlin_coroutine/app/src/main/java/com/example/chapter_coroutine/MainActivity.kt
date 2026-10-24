@@ -11,17 +11,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.supervisorScope
 import kotlin.coroutines.cancellation.CancellationException
-import android.util.Log
-
-private const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +37,11 @@ fun MyApp() {
 //            CoroutineExample()
 //            ExExceptionPropagationWithSupervisorScope()
 //            ExCancel()
-//              ExTestCoroutineScope()
+//            ExTestCoroutineScope()
 
 //            testOldStyleCallback()
 //            testOldStyleCallbackWithAsyncClient()
-//            val res = testSuspendCancellableCoruotine()
+//            val res = testSuspendCancellableCoroutine()
 //            println("returned res = $res")
 
 //            testChannel()
@@ -173,4 +168,3 @@ fun CoroutineExample() {
         }
     }
 }
-

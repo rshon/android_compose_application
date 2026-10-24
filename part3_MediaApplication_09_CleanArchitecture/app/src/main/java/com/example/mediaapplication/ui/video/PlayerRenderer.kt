@@ -3,16 +3,12 @@ package com.example.mediaapplication.ui.video
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
-import android.view.SurfaceView
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.example.mediaapplication.viewmodel.VideoPlayerViewModel
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.media3.ui.PlayerView
 import android.view.SurfaceHolder
+import android.view.SurfaceView
 import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -20,9 +16,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.PlayerView
 import com.example.mediaapplication.data.player.PlayerEngineType
+import com.example.mediaapplication.viewmodel.VideoPlayerViewModel
 
 @OptIn(UnstableApi::class)
 @Composable
@@ -43,7 +43,7 @@ fun PlayerRenderer(
                         try {
                             player = viewModel.getPlayer() as? androidx.media3.common.Player
                         } catch (e: UnsupportedOperationException) {
-                            Log.e("VideoPlayerScreen", "Cannot set MediaPlayer to PlayerView directly.", e)
+                            Log.e("PlayerRenderer", "Cannot set MediaPlayer to PlayerView directly.", e)
                         }
                         useController = false
                         resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
@@ -175,7 +175,7 @@ class AspectRatioSurfaceView @JvmOverloads constructor(
 
         Log.d("AspectRatioSurfaceView",
             "onMeasure() spec=(${specWidth}×${specHeight}) " +
-                    "=> measured=(${measuredWidth}×${measuredHeight})"
+                "=> measured=(${measuredWidth}×${measuredHeight})"
         )
     }
 }

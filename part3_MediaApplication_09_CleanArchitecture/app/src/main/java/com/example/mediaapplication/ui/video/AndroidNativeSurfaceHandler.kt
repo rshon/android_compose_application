@@ -11,14 +11,16 @@ import javax.inject.Singleton
 class AndroidNativeSurfaceHandler @Inject constructor() : NativeSurfaceHandler {
 
     override fun applySurfaceToPlayer(surface: VideoSurface?, player: Any?) {
-        if (player is MediaPlayer && surface is AndroidVideoSurface) {
-            try {
-                val nativeSurface = surface.getNativeSurface()
-                player.setSurface(nativeSurface)
-                Log.d("AndroidNativeSurfaceHandler", "Surface applied to MediaPlayer")
-            } catch (e: Exception) {
-                Log.e("AndroidNativeSurfaceHandler", "Error setting surface", e)
-            }
+        if (player !is MediaPlayer) return
+        // null clears the surface; a non-null surface must be an AndroidVideoSurface
+        if (surface != null && surface !is AndroidVideoSurface) return
+
+        try {
+            val nativeSurface = (surface as? AndroidVideoSurface)?.getNativeSurface()
+            player.setSurface(nativeSurface)
+            Log.d("AndroidNativeSurfaceHandler", "Surface applied to MediaPlayer")
+        } catch (e: Exception) {
+            Log.e("AndroidNativeSurfaceHandler", "Error setting surface", e)
         }
     }
 }

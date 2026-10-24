@@ -19,8 +19,8 @@ class VideoPlayUseCase @Inject constructor(
 
     fun play(uri: String, scope: CoroutineScope) = port?.play(uri, scope)
     fun play() = port?.play()
-    fun pause()   = port?.pause()
-    fun resume()  = port?.resume()
+    fun pause() = port?.pause()
+    fun resume() = port?.resume()
     fun seekTo(ms: Long) = port?.seekTo(ms)
     fun release() = port?.release()
 

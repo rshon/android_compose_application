@@ -1,4 +1,3 @@
-
 interface Studyable {
     fun study()
 }
@@ -29,7 +28,7 @@ class UndergraduateStudent(
     }
 }
 
-class ExchangedStudent(
+class ExchangeStudent(
     name: String,
     major: String,
     grade: Int,
@@ -63,10 +62,10 @@ class GraduateStudent(
 
 fun main() {
     val undergrad = UndergraduateStudent("Foo", "Computer Science", 1)
-    val exchange = ExchangedStudent("Bar", "Mathmatics", 4, "University of Sydney")
+    val exchange = ExchangeStudent("Bar", "Mathematics", 4, "University of Sydney")
     val grad = GraduateStudent("Boo", "Computer Science", 2, "Recommender System for OTT")
 
-    println("--- Way of studying  ---")
+    println("--- Way of studying ---")
     val studyingPeople: List<Studyable> = listOf(undergrad, exchange, grad)
 
     for (person in studyingPeople) {

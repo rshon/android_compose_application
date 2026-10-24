@@ -61,7 +61,7 @@ dependencies {
     testImplementation("com.google.truth:truth:1.4.4")
     androidTestImplementation("com.google.truth:truth:1.4.4")
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")    // <-- CHANGE THIS to 1.1.5
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")

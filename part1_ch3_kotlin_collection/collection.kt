@@ -1,4 +1,4 @@
-// kotlinc kotlin/collection/collection.kt -include-runtime -d main.jar && java -jar main.jar
+// kotlinc collection.kt -include-runtime -d main.jar && java -jar main.jar
 
 fun compareArraySpeed(arraySize: Int) {
     val objectArray = Array(arraySize) { index -> index }
@@ -116,7 +116,7 @@ fun testMutableList() {
 fun testSet() {
     val numbers = setOf(1, 2, 2, 3)
     println(numbers)          // [1, 2, 3]
-    
+
     val mutableNumbers = mutableSetOf(4, 5)
     mutableNumbers.add(6)
     println(mutableNumbers)   // [4, 5, 6]
@@ -125,7 +125,7 @@ fun testSet() {
 fun testMap() {
     val scores = mapOf("Alice" to 95, "Bob" to 87)
     println(scores["Alice"])      // Output: 95
-    
+
     val mutableScores = mutableMapOf("Charlie" to 90)
     mutableScores["Dave"] = 85    // Add
     println(mutableScores)        // Output: {Charlie=90, Dave=85}
@@ -186,39 +186,39 @@ fun compareEagerVsLazy() {
     val sequence = sequenceOf(1, 2, 3, 4, 5)
         .map { println("map: $it"); it * it }
         .filter { println("filter: $it"); it > 3 }
-    
+
     val result = sequence.toList()
 }
 
 fun testHashSet() {
     val languages = hashSetOf("Kotlin")
-    languages.add("Python")                    
-    languages.addAll(listOf("Java", "Kotlin")) 
+    languages.add("Python")
+    languages.addAll(listOf("Java", "Kotlin"))
     println(languages)                         // [Kotlin, Python, Java] (random order)
-    
+
     languages.remove("Python")
     println(languages)                         // [Java, Kotlin]
-    
+
     languages.removeAll(setOf("Kotlin", "Java"))
     println(languages)                         // []
-    
+
     languages.clear()                          // Clear all
     println(languages)                         // Output: []
 }
 
 fun testLinkedHashSet() {
     val languages = linkedSetOf("Kotlin")
-    languages.add("Python")                   
+    languages.add("Python")
     languages.addAll(listOf("Java", "Kotlin"))
     println(languages)                         // [Kotlin, Python, Java] (insertion order maintained)
-    
-    languages.remove("Python")           
+
+    languages.remove("Python")
     println(languages)                         // [Kotlin, Java]
-    
+
     languages.removeAll(setOf("Kotlin", "Java"))
     println(languages)                         // []
-    
-    languages.clear()                          
+
+    languages.clear()
     println(languages)                         // []
 }
 
@@ -228,13 +228,11 @@ fun main() {
 
     testMutableList()
 
-    
     // val squares = Array(5) { i -> i * i }
     // println(squares.joinToString())
 
     // val numbers = Array(5) { i -> i + 1 }
     // println(numbers.joinToString())
-
 
     // compareArraySpeed(1000)
     // compareArraySpeed(10000)

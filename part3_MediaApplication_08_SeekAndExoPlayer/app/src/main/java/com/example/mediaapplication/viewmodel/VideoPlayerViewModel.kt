@@ -6,9 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
-import androidx.media3.exoplayer.ExoPlaybackException
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.mediaapplication.domain.port.VideoPlayerPort
 import com.example.mediaapplication.domain.usecase.VideoPlayUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -20,7 +18,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 
 data class PlayerState(
@@ -34,8 +31,7 @@ enum class PlayerEngineType {
     MEDIA_PLAYER
 }
 
-private val TAG = "VideoPlayerViewModel"
-
+private const val TAG = "VideoPlayerViewModel"
 
 @HiltViewModel
 class VideoPlayerViewModel @Inject constructor(
@@ -92,7 +88,7 @@ class VideoPlayerViewModel @Inject constructor(
         override fun onPlayerError(error: PlaybackException) {
             stopPositionUpdates()
             updatePlayerState() // 에러 상태도 UI에 반영할 수 있도록
-            Log.e("VideoPlayerViewModel", "Player Error: ${error.message}", error)
+            Log.e(TAG, "Player Error: ${error.message}", error)
         }
     }
 
@@ -182,5 +178,5 @@ class VideoPlayerViewModel @Inject constructor(
         videoPlayUseCase.setSurface(surface)
     }
 
-    fun getVideoSize(): Pair<Int, Int> =  _videoSize.value
+    fun getVideoSize(): Pair<Int, Int> = _videoSize.value
 }

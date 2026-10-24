@@ -1,16 +1,15 @@
 package com.example.mediaapplication.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mediaapplication.domain.MediaRepository
 import com.example.mediaapplication.domain.model.MediaItem
 import com.example.mediaapplication.domain.model.MediaType
-import com.example.mediaapplication.domain.MediaRepository
 import com.example.mediaapplication.domain.usecase.PlayMusicUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

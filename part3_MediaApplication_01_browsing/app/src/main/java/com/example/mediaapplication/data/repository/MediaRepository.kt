@@ -10,7 +10,6 @@ class MediaRepository {
 
     fun loadMediaContent(context: Context): List<MediaItem> {
         val mediaList = mutableListOf<MediaItem>()
-        val contentResolver = context.contentResolver
 
         // 확장자와 미디어 타입 매핑
         val extensionToMediaType = mapOf(

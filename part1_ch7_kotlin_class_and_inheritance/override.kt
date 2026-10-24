@@ -47,7 +47,7 @@ class GraduateStudent(
         get() = field.lowercase()
         set(value) { field = value.uppercase() }
 
-    override var grade: Int = graduateYearParam
+    override var grade: Int
         get() = graduateYear + BASE_UNDERGRAD_YEARS
         set(value) {
             graduateYear = value - BASE_UNDERGRAD_YEARS
@@ -66,18 +66,18 @@ class GraduateStudent(
 }
 
 fun main() {
-    val undergrad_1 = UndergraduateStudent("Foo", "Computer Science", 2)
-    val undergrad_2 = UndergraduateStudent("Bar", "Mathematics", 3)
+    val undergrad1 = UndergraduateStudent("Foo", "Computer Science", 2)
+    val undergrad2 = UndergraduateStudent("Bar", "Mathematics", 3)
     val grad = GraduateStudent("Boo", "Electrical Engineering", 2, "AI Energy Optimization")
 
-    undergrad_1.introduce()
-    undergrad_1.name = "Undergrad-Bar"  // Update Foo to Bar
-    undergrad_1.grade = 5              // Limited to 4
+    undergrad1.introduce()
+    undergrad1.name = "Undergrad-Bar"  // Update Foo to Bar
+    undergrad1.grade = 5              // Limited to 4
     println("After update:")
-    undergrad_1.introduce()
+    undergrad1.introduce()
 
     println("---")
-    undergrad_2.introduce()
+    undergrad2.introduce()
 
     println("---")
     grad.introduce()

@@ -11,63 +11,53 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.ch_canvas_.ui.theme.Ch_canvas_Theme
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.ui.unit.dp                // dp 단위
 import androidx.compose.foundation.layout.height  // height Modifier
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color         // Color 클래스
-import androidx.compose.ui.geometry.Offset        // Offset 좌표
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset  // Offset 좌표
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.Size          // Size 크기
+import androidx.compose.ui.geometry.Size  // Size 크기
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color  // Color 클래스
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.viewinterop.AndroidView
-import kotlinx.coroutines.delay
-import java.time.LocalTime
-import java.util.Random
-import kotlin.math.cos
-import kotlin.math.min
-import kotlin.math.sin
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp  // dp 단위
 import androidx.compose.ui.unit.sp
-import androidx.room.util.copy
+import androidx.compose.ui.viewinterop.AndroidView
+import com.example.ch_canvas_.ui.theme.Ch_canvas_Theme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.rememberCameraPositionState
+import kotlinx.coroutines.delay
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import android.Manifest
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.platform.LocalDensity
-//import com.google.accompanist.permissions.ExperimentalPermissionsApi
-//import com.google.accompanist.permissions.rememberPermissionState
-//import com.google.accompanist.permissions.shouldShowRationale
-import kotlin.math.atan2
-
+import java.util.Random
+import kotlin.math.cos
+import kotlin.math.min
+import kotlin.math.sin
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -222,7 +212,7 @@ fun CustomMapCanvasOverlaySimple(
     Canvas(modifier = Modifier.fillMaxSize()) {
         // 마커: 원 그리기
         drawCircle(
-            color = Color   .Red,
+            color = Color.Red,
             center = markerOffset,
             radius = 12f
         )
@@ -264,7 +254,6 @@ fun DigitalClock(
         }
     }
 }
-
 
 @Composable
 fun AnalogClock(
@@ -370,9 +359,9 @@ fun CameraWithOverlay(modifier: Modifier = Modifier.fillMaxSize()) {
         Canvas(Modifier.matchParentSize()) {
             val stroke = Stroke(width = 4.dp.toPx())
             val rect = Rect(
-                left   = size.width * 0.1f,
-                top    = size.height * 0.2f,
-                right  = size.width * 0.9f,
+                left = size.width * 0.1f,
+                top = size.height * 0.2f,
+                right = size.width * 0.9f,
                 bottom = size.height * 0.8f
             )
             drawRect(
@@ -384,7 +373,7 @@ fun CameraWithOverlay(modifier: Modifier = Modifier.fillMaxSize()) {
             drawLine(
                 color = Color.Green,
                 start = rect.topLeft,
-                end   = rect.bottomRight,
+                end = rect.bottomRight,
 //                style = stroke
             )
         }
@@ -422,7 +411,6 @@ fun WaveAnimation(modifier: Modifier = Modifier.fillMaxSize()) {
         drawPath(path, color = Color(0xFF03A9F4))
     }
 }
-
 
 @Composable
 fun CurvedButton(
@@ -497,12 +485,12 @@ private data class Particle(
             val rnd = Random()
             return Particle(
                 start = Offset(rnd.nextFloat() * 400, rnd.nextFloat() * 800),
-                end   = Offset(rnd.nextFloat() * 400, rnd.nextFloat() * 800),
-                size  = rnd.nextFloat() * 8 + 2,
+                end = Offset(rnd.nextFloat() * 400, rnd.nextFloat() * 800),
+                size = rnd.nextFloat() * 8 + 2,
                 color = Color(
-                    red   = rnd.nextFloat(),
+                    red = rnd.nextFloat(),
                     green = rnd.nextFloat(),
-                    blue  = rnd.nextFloat(),
+                    blue = rnd.nextFloat(),
                     alpha = 0.8f
                 )
             )

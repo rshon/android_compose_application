@@ -28,7 +28,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-
 class MainActivityWithFactoryRegistration : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +45,7 @@ class StudentRepositoryImplFactoryForAutoRegistration : RepositoryFactory {
     init {
         RepositoryRegistry.registerFactory<StudentRepositoryInterface>(RepositoryKey.STUDENT_IMPL) { StudentRepositoryImpl() }
     }
+
     override fun createStudentRepository(): StudentRepositoryInterface {
         return StudentRepositoryImpl()
     }
@@ -102,7 +102,7 @@ fun StudentScreenWithInterface(repository: StudentRepositoryInterface) {
     val grade by viewModel.grade.collectAsState()
     val studentInfo by viewModel.studentInfo.collectAsState()
 
-    Scaffold { paddingValues ->  // receives paddingValues
+    Scaffold { paddingValues -> // receives paddingValues
         Column(
             modifier = Modifier
                 .fillMaxSize()

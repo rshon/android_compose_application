@@ -8,7 +8,7 @@ enum class RepositoryKey {
 
 class StudentRepository {
     fun getStudent(name: String, major: String, grade: String): Student {
-        return Student(name, major, grade)  // just create
+        return Student(name, major, grade) // just create
     }
 }
 

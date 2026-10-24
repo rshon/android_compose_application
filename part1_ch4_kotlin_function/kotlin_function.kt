@@ -34,7 +34,7 @@ inline fun inlineFunction(crossinline body: () -> Unit) {
     body()
 }
 
-infix fun Int.plus(n: Int): Int = this + n
+infix fun Int.addTo(n: Int): Int = this + n
 
 tailrec fun factorial(n: Int, accumulator: Int = 1): Int {
     return if (n <= 1) accumulator else factorial(n - 1, n * accumulator)
@@ -80,7 +80,7 @@ fun main() {
         println("Inline function")
     }
 
-    println(5 plus 3)
+    println(5 addTo 3)
 
     println(factorial(5)) // Output: 120
 

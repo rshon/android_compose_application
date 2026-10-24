@@ -1,13 +1,13 @@
 class Student(name: String, major: String, grade: Int) {
-   val name: String = name
-   val major: String = major
-   var grade: Int = grade
+    val name: String = name
+    val major: String = major
+    var grade: Int = grade
 
-   fun printInfo() {
-       println("name: ${this.name}")
-       println("major: ${this.major}")
-       println("grade: ${this.grade}")
-   }
+    fun printInfo() {
+        println("name: ${this.name}")
+        println("major: ${this.major}")
+        println("grade: ${this.grade}")
+    }
 }
 
 class Student1(name: String, major: String, grade: Int)
@@ -51,10 +51,10 @@ class Student4(name: String, major: String, grade: Int) {
         }
         set(value) {
             println("Setting grade from $field to $value")
-            if (value >= 1 && value <= 4) {
+            if (value in 1..4) {
                 field = value
             } else {
-                println("grade must be in between 1 and 4.")
+                println("grade must be between 1 and 4.")
             }
         }
 }
@@ -65,7 +65,7 @@ class Student5(name: String, major: String, initialGrade: Int) {
     var grade: Int
 
     init {
-        println("start to init Student4")
+        println("start to init Student5")
         this.name = name.trim()
         this.major = major.trim()
         this.grade = if (initialGrade in 1..4) {
@@ -74,7 +74,7 @@ class Student5(name: String, major: String, initialGrade: Int) {
             println("grade must be between 1 and 4! set 1 as default value")
             1
         }
-        println("Student4 done")
+        println("Student5 done")
     }
 
     fun printInfo() {
@@ -156,7 +156,7 @@ fun testDataclass() {
     val student2 = Student9(2, "Bob", "Physics", 3)
 
     println("----- data class info -----")
-    println(student1)  // automatically generates toString() 
+    println(student1)  // automatically generates toString()
     println(student2)
 
     println("\n----- (equals()) -----")
@@ -170,7 +170,7 @@ fun testDataclass() {
     println("student3 hashCode: ${student3.hashCode()}")
 
     val students = setOf(student1, student2, student3)
-    println("Set 크기: ${students.size}") // remove redundent objecs
+    println("Set 크기: ${students.size}") // remove redundant objects
 
     println("\n----- (copy()) -----")
     val student4 = student1.copy(name = "Alicia", grade = 3)
@@ -183,17 +183,16 @@ fun testDataclass() {
 
     val idOnly = student1.component1()
     val nameAndMajor = Pair(student1.component2(), student1.component3())
-    println("extracing only ID: $idOnly")
-    println("extracing name and major: $nameAndMajor")
+    println("extracting only ID: $idOnly")
+    println("extracting name and major: $nameAndMajor")
 }
-
 
 class Student10(val id: Int, var name: String) {
     companion object {
-        var next_id: Int = 1
+        var nextId: Int = 1
 
         fun create(name: String): Student10 {
-            return Student10(next_id++, name)
+            return Student10(nextId++, name)
         }
     }
 
@@ -201,7 +200,6 @@ class Student10(val id: Int, var name: String) {
         println("ID: $id, Name: $name")
     }
 }
-
 
 fun testCompanionObject() {
     val student1 = Student10.create("Alice")
@@ -212,9 +210,8 @@ fun testCompanionObject() {
     student2.printInfo()
     student3.printInfo()
 
-    println("Next ID: ${Student10.next_id}") // Companion Object 프로퍼티 접근
+    println("Next ID: ${Student10.nextId}") // Companion Object 프로퍼티 접근
 }
-
 
 object StudentManager {
     private val students = mutableListOf<Student>()
@@ -241,7 +238,6 @@ object StudentManager {
     }
 }
 
-
 fun testObject() {
     val student1 = Student("Foo", "Computer Science", 3)
     val student2 = Student("Bar", "Math", 2)
@@ -253,10 +249,9 @@ fun testObject() {
 
     StudentManager.updateStudentGrade("Foo", 4)
 
-    val found_student = StudentManager.getStudentByName("밥")
-    println(found_student)
+    val foundStudent = StudentManager.getStudentByName("밥")
+    println(foundStudent)
 }
-
 
 fun main() {
     testObject()

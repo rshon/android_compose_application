@@ -3,7 +3,7 @@ package com.example.chapter_flow
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-fun test_hot_state_flow() = runBlocking {
+fun testHotStateFlow() = runBlocking {
     val stateFlow = MutableStateFlow(1)
 
     val emitterJob = launch {
@@ -48,7 +48,7 @@ fun testHotSharedFlow() = runBlocking {
         println("SharedFlow emitted all values")
     }
 
-    val consumer_1st = launch {
+    val consumer1st = launch {
         sharedFlow.collect { value ->
             println("Collector A received: $value")
         }
@@ -56,7 +56,7 @@ fun testHotSharedFlow() = runBlocking {
 
     delay(300) // 약간의 딜레이 후 두 번째 수집자 시작
 
-    val consumer_2nd = launch {
+    val consumer2nd = launch {
         sharedFlow.collect { value ->
             println("Collector B received: $value")
         }
@@ -65,11 +65,11 @@ fun testHotSharedFlow() = runBlocking {
     delay(500) // 프로그램 종료 대기
 
     producer.cancel()
-    consumer_1st.cancel()
-    consumer_2nd.cancel()
+    consumer1st.cancel()
+    consumer2nd.cancel()
 }
 
 fun main() {
-//    test_hot_state_flow()
+//    testHotStateFlow()
     testHotSharedFlow()
 }

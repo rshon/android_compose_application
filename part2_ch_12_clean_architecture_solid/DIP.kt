@@ -1,4 +1,3 @@
-
 interface YearCalculationStrategy {
     fun calculateRemainingYears(grade: Int, maxGrade: Int): Int
 }
@@ -156,11 +155,11 @@ fun main() {
 
     val undergrads: List<InternshipCertifiable> = students.filterIsInstance<UndergraduateStudent>()
     for (student in undergrads) {
-        println("${student.certifyInternship()}")
+        println(student.certifyInternship())
     }
 
     val grads: List<ThesisVerifiable> = students.filterIsInstance<GraduateStudent>()
     for (student in grads) {
-        println("${student.verifyThesisStatus()}")
+        println(student.verifyThesisStatus())
     }
 }

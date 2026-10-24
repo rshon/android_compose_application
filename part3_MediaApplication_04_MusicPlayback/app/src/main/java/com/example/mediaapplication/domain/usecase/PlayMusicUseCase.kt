@@ -1,6 +1,5 @@
 package com.example.mediaapplication.domain.usecase
 
-import android.content.Context
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
@@ -8,7 +7,6 @@ import com.example.mediaapplication.data.model.MediaItem
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.io.IOException
 
 class PlayMusicUseCase {
 
@@ -49,11 +47,11 @@ class PlayMusicUseCase {
                 }
 
                 mediaPlayer?.setOnCompletionListener {
+                    handler.removeCallbacksAndMessages(null)
                     handler.post {
                         _isPlaying.value = false
                         _progress.value = 0
                     }
-                    handler.removeCallbacksAndMessages(null)
                 }
 
                 // Handler를 사용한 진행 상태 업데이트
