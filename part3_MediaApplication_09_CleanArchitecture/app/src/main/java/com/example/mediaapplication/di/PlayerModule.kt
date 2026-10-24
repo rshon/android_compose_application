@@ -17,7 +17,7 @@ import javax.inject.Singleton
 abstract class PlayerModule {
     @Binds
     @Singleton
-    abstract fun bindMusicPlayerPort(
+    abstract fun bindMediaPlayerPort(
         impl: MusicPlayerAdapter
     ): MusicPlayerPort
 
@@ -41,7 +41,7 @@ abstract class PlayerModule {
     companion object {
         @Provides
         @Singleton
-        fun provideVideoPlayerPortFactory(
+        fun provideVideoPlayerPort(
             @MediaPlayerPortImpl mediaImpl: VideoPlayerPort,
             @ExoPlayerPortImpl exoImpl: VideoPlayerPort
         ): VideoPlayerPortFactory {
