@@ -42,10 +42,11 @@ fun testHandlingException2() = runBlocking {
     val flow = flow {
         emit(1)
         throw RuntimeException("Error!")
-    }.catch { e ->
-        println("Caught: ${e.message}")
-        emit(-1)
     }
+        .catch { e ->
+            println("Caught: ${e.message}")
+            emit(-1)
+        }
 
     val result = flow.toList()
     result.forEach { println(it) }

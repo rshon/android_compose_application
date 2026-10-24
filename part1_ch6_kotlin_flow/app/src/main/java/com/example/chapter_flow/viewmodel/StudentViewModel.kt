@@ -25,22 +25,27 @@ class StudentViewModel : ViewModel() {
 
             try {
                 // 1st studnet
-                _studentState.value = StudentState(student = Student("Foo", "Computer Science", 1), isLoading = false)
+                _studentState.value = StudentState(student = Student("Foo", "Computer Science", 1), 
+                    isLoading = false)
                 delay(1000)
 
                 // set the same data as 1st student (distinctUntilChanged() for StateFlow does not trigger recomposition)
-                _studentState.value = StudentState(student = Student("Foo", "Computer Science", 1), isLoading = false)
+                _studentState.value = StudentState(student = Student("Foo", "Computer Science", 1), 
+                    isLoading = false)
                 delay(1000)
 
                 // 2nd student
-                _studentState.value = StudentState(student = Student("Bar", "Data Science", 2), isLoading = false)
+                _studentState.value = StudentState(student = Student("Bar", "Data Science", 2), 
+                    isLoading = false)
                 delay(1000)
 
                 // notifies error status
-                _studentState.value = StudentState(student = null, isLoading = false, errorMessage = "Student data is not available anymore!")
+                _studentState.value = StudentState(student = null, isLoading = false, 
+                    errorMessage = "Student data is not available anymore!")
 
             } catch (e: Exception) {
-                _studentState.value = StudentState(student = null, isLoading = false, errorMessage = e.message)
+                _studentState.value = StudentState(student = null, isLoading = false, 
+                    errorMessage = e.message)
             }
         }
     }

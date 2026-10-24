@@ -1,17 +1,17 @@
 
 
 interface Animal {
-    fun makeSound(): Unit
+    fun makeSound()
 }
 
 class Dog: Animal {
-    override fun makeSound(): Unit {
+    override fun makeSound() {
         println("Woof")
     }
 }
 
 class Cat: Animal {
-    override fun makeSound(): Unit {
+    override fun makeSound() {
         println("Meow")
     }
 }
@@ -54,7 +54,7 @@ class UndergraduateStudent(
 ) : Student(name, major, grade) {
     override fun calculateRemainingYears(): Int {
         val baseYears = calculateBaseYears(4)
-        return if (hasInternship) baseYears - 1 else baseYears
+        return if (hasInternship) (baseYears - 1).coerceAtLeast(0) else baseYears
     }
 
     override fun printInfo() {

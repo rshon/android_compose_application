@@ -10,11 +10,9 @@ class Student(name: String, major: String, grade: Int) {
    }
 }
 
-class Student1(name: String, major: String, grade: Int) {
-}
+class Student1(name: String, major: String, grade: Int)
 
-class Student2(var name: String, var major: String, var grade: Int) {
-}
+class Student2(var name: String, var major: String, var grade: Int)
 
 class Student3(name: String, major: String, grade: Int) {
     val name: String = name

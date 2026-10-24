@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
 //                    )
 //                    ColumnExample()
 //                    RowExample()
-                    BoxExample()
+//                    BoxExample()
 //                    BoxLoadingDemo()
 //                    ConstraintLayoutExample()
 //                    ConstraintLayoutChainsExample()
@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
 //                    ConstraintLayoutMarginExample()
 //                    ConstraintLayoutBarrierBoxExample()
 //                    LazyListWithStateExample()
-//                    LazyRowExample()
+                    LazyRowExample()
 //                    Mp3ThumbnailScreen()
 //                    ListKeyStateExample()
                 }
@@ -460,7 +460,7 @@ fun CardsWithLazyRow(modifier: Modifier = Modifier) {
                 alpha = 255
             )
 
-            val luminance = (0.299 * randomColor.red + 0.587 * randomColor.green + 0.114 * randomColor.blue) / 255
+            val luminance = (0.299 * randomColor.red + 0.587 * randomColor.green + 0.114 * randomColor.blue)
             val textColor = if (luminance > 0.5) Color.Black else Color.White
 
             Card(

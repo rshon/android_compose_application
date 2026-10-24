@@ -178,11 +178,11 @@ fun testTypeCastingOperator() {
 }
 
 fun testTypeCastingOperator2() {
-open class Animal
+    open class Animal
 
-class Cat : Animal()
+    class Cat : Animal()
 
-class Dog : Animal()
+    class Dog : Animal()
 
     
     val myAnimal: Animal = Cat()  // Cat 객체를 Animal 타입으로 저장

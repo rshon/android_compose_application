@@ -64,7 +64,11 @@ class MainActivity : ComponentActivity() {
 
             MusicPlayerScreen(
                 isPlaying = isPlaying,
-                onPlay = { musicUri.value?.let { if (isBound && musicService != null) musicService?.playMusic(it) } },
+                onPlay = {
+                    musicUri.value?.let {
+                        if (isBound && musicService != null) musicService?.playMusic(it)
+                    }
+                },
                 onPause = { if (isBound && musicService != null) musicService?.pauseMusic() },
                 onStop = { if (isBound && musicService != null) musicService?.stopMusic() },
                 onResume = { if (isBound && musicService != null) musicService?.resumeMusic() },
@@ -94,7 +98,7 @@ class MainActivity : ComponentActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == READ_EXTERNAL_STORAGE_PERMISSION_CODE) {
-            android.util.Log.d("MainActivity", "grant results = ${grantResults.isNotEmpty()}, ${grantResults[0]}")
+            Log.d("MainActivity", "grant results = ${grantResults.isNotEmpty()}, ${grantResults.firstOrNull()}")            
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 isPermissionGranted.value = true
                 musicUri.value = Uri.parse("/sdcard/06_너에게들려주고싶은이야기.mp3")

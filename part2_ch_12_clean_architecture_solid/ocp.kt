@@ -15,7 +15,7 @@ class UndergraduateYearCalculation(
 ) : YearCalculationStrategy {
     override fun calculateRemainingYears(grade: Int, maxGrade: Int): Int {
         val baseYears = DefaultYearCalculation().calculateRemainingYears(grade, maxGrade)
-        return if (hasInternship) baseYears - 1 else baseYears
+        return if (hasInternship) (baseYears - 1).coerceAtLeast(0) else baseYears
     }
 }
 

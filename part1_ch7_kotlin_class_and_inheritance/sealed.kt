@@ -27,12 +27,11 @@ sealed class Student(
 }
 
 fun describe(student: Student): String = when (student) {
-    is Student.Undergraduate -> "${student.name} — grade ${student.year} " +
-                                 "(${student.major}, average ${student.grade})"
-    is Student.Graduate      -> "${student.name} — graduate (${student.major}), " +
-                                 "thesis: ${student.thesisTitle}"
-    Student.OnLeave          -> "on leave(N/A)"
-    // else 불필요: sealed 덕분에 컴파일러가 모든 분기 확인
+    is Student.Undergraduate ->
+        "${student.name} — grade ${student.year} (${student.major}, average ${student.grade})"
+    is Student.Graduate ->
+        "${student.name} — graduate (${student.major}), thesis: ${student.thesisTitle}"
+    Student.OnLeave -> "on leave(N/A)"
 }
 
 sealed class StudentEvent {

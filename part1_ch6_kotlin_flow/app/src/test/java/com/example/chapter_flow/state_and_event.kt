@@ -52,7 +52,8 @@ fun test_event_flow() = runBlocking {
     getStudentEvents()
         .collect { event ->
             when (event) {
-                is StudentEvent.UpdateGrade -> println("Grade updated: ${event.student.name}, Grade: ${event.student.grade}")
+                is StudentEvent.UpdateGrade ->
+                    println("Grade updated: ${event.student.name}, Grade: ${event.student.grade}")
                 is StudentEvent.ShowMessage -> println("Message: ${event.message}")
                 is StudentEvent.DeleteStudent -> println("Student deleted")
             }
