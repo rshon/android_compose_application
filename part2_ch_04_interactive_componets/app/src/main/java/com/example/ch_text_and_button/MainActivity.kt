@@ -43,14 +43,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ch_text_and_button.ui.theme.Ch_text_and_buttonTheme
+import com.example.ch_text_and_button.ui.theme.ChapterTextAndButtonTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_text_and_buttonTheme {
+            ChapterTextAndButtonTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     MyScreen()
                 }

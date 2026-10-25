@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import coil.compose.rememberAsyncImagePainter
-import com.example.ch_basic_image.ui.theme.Ch_basic_ImageTheme
+import com.example.ch_basic_image.ui.theme.ChapterBasicImageTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_basic_ImageTheme {
+            ChapterBasicImageTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(
                         modifier = Modifier
@@ -318,7 +318,7 @@ fun ImageGridWithFullscreenDialog(
 @Preview(showBackground = true)
 @Composable
 fun GalleryScreenPreview() {
-    Ch_basic_ImageTheme { // 테마 적용
+    ChapterBasicImageTheme { // 테마 적용
         GalleryScreen()
     }
 }
