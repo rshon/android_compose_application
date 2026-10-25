@@ -11,14 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.chapter_flow.ui.student.StudentScreen
-import com.example.chapter_flow.ui.theme.Chapter_flowTheme
+import com.example.chapter_flow.ui.theme.ChapterFlowTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Chapter_flowTheme {
+            ChapterFlowTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Android",
@@ -42,7 +42,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Chapter_flowTheme {
+    ChapterFlowTheme {
         Greeting("Android")
     }
 }

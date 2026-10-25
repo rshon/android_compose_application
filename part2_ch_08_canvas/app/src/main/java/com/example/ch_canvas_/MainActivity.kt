@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp  // dp 단위
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.ch_canvas_.ui.theme.Ch_canvas_Theme
+import com.example.ch_canvas_.ui.theme.ChapterCanvasTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_canvas_Theme {
+            ChapterCanvasTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
 //                        BarChart(listOf(2.0f, 3.0f, 2.45f, 2.1f, 2.2f, 2.9f, 3.2f, 3.1f, 2.5f))

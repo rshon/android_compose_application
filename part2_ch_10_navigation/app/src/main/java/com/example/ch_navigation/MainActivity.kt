@@ -32,14 +32,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.ch_navigation.ui.theme.Ch_navigationTheme
+import com.example.ch_navigation.ui.theme.ChapterNavigationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_navigationTheme {
+            ChapterNavigationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     StudentInfoApp(
                         innerPadding

@@ -89,7 +89,7 @@ import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.FractionalThreshold
 import androidx.wear.compose.material.rememberSwipeableState
 import androidx.wear.compose.material.swipeable
-import com.example.ch_modifier.ui.theme.Ch_modifierTheme
+import com.example.ch_modifier.ui.theme.ChapterModifierTheme
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity() {
@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_modifierTheme {
+            ChapterModifierTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    ClickTest()
 //                    DragText()

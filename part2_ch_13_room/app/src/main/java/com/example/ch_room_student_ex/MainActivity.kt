@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ch_room_student_ex.presentation.MainScreen
 import com.example.ch_room_student_ex.presentation.add.AddStudentScreen
 import com.example.ch_room_student_ex.presentation.list.StudentListScreen
-import com.example.ch_room_student_ex.ui.theme.Ch_room_student_exTheme
+import com.example.ch_room_student_ex.ui.theme.ChapterRoomStudentExTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Ch_room_student_exTheme {
+            ChapterRoomStudentExTheme {
                 Surface {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "main") {

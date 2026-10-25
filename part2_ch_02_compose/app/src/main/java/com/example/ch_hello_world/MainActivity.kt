@@ -23,14 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ch_hello_world.ui.theme.Ch_hello_worldTheme
+import com.example.ch_hello_world.ui.theme.ChapterHelloWorldTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_hello_worldTheme {
+            ChapterHelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Android",
@@ -74,7 +74,7 @@ fun MyScreen() {
 @Preview(showBackground = true)
 @Composable
 fun MyScreenPreview() {
-    Ch_hello_worldTheme {
+    ChapterHelloWorldTheme {
         MyScreen()
     }
 }

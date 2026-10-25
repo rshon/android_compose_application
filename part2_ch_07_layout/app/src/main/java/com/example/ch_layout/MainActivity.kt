@@ -69,7 +69,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
-import com.example.ch_layout.ui.theme.Ch_layoutTheme
+import com.example.ch_layout.ui.theme.ChapterLayoutTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_layoutTheme {
+            ChapterLayoutTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Android",
@@ -931,7 +931,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Ch_layoutTheme {
+    ChapterLayoutTheme {
         Greeting("Android")
     }
 }

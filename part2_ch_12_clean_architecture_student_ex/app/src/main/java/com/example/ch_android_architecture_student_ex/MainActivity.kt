@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ch_android_architecture_student_ex.ui.StudentScreen
-import com.example.ch_android_architecture_student_ex.ui.theme.Ch_android_architecture_student_exTheme
+import com.example.ch_android_architecture_student_ex.ui.theme.ChapterAndroidArchitectureStudentExTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Ch_android_architecture_student_exTheme {
+            ChapterAndroidArchitectureStudentExTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(
                         modifier = Modifier
@@ -50,7 +50,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Ch_android_architecture_student_exTheme {
+    ChapterAndroidArchitectureStudentExTheme {
         Greeting("Android")
     }
 }
